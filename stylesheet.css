@@ -7,8 +7,9 @@
   font-family: "Poppins";
 }
 
+/* HEADER */
 .navbar {
-  background-color: #0277bd;
+  background-color: #027BBF;
 }
 
 .logo {
@@ -32,16 +33,163 @@
   color: #0f0f0f !important;
 }
 
-/*  */
-
-main {
-  background-color: #f5f5f5;
+/* FOOTER */
+footer {
+  background-color: #027BBF;
+  color: #ffffff;
 }
 
-/*  */
-.overview {
-  outline: 0.5px solid red;
+footer a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease-in-out;
 }
-.overview h1 {
+
+footer a:hover {
+  color: #0f0f0f !important;
+}
+
+footer .fa-solid {
+  margin-right: 10px;
+}
+
+.fa-brands {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+.fa-facebook:hover {color: #3b5998}
+
+/*  */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-auto-rows: 150px;
+  gap: 20px;
+  background-color: #027BBF;
+}
+
+.service {
+  position: relative;
+  height: 150px;  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: all 0.3s ease-in-out;
+}
+
+.service-icon {
+  position: absolute;
+  top: 7%;
+  height: 25%;
+}
+
+.service-table tr th {
+  vertical-align: top;
+}
+
+.service-table tr td {
+  padding-left: 15px;
+}
+
+
+/*  */
+
+.bg-blue { background-color: #027BBF; }
+.bg-cyan { background-color: #2BBFC4; }
+.border-cyan { border-color: #2BBFC4; }
+
+.cb-gradient {
+  background: linear-gradient(90deg, #2BBFC4, #027BBF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.fs-7 { font-size: 14px; }
+
+/* INDEX */
+.index-content .overview h1 {
+  font-size: 35px;
+}
+
+
+
+/* SERVICES */
+.services-overview h1 {
   font-size: 40px;
+}
+
+@media(min-width: 800px){
+  .services-overview {
+    display: flex;
+  }
+  .services-overview div:nth-child(1) {
+    width: 70%;
+  } 
+  .services-overview div:nth-child(2) {
+    width: 30%;
+  }
+}
+
+
+.office-image img {
+  width: 100%;
+}
+
+.our-clinic h1 {
+  font-size: 2rem;
+}
+
+.our-clinic img {
+  width: 100%;
+}
+
+
+.clinic-information {
+  position: relative;
+  height: 330px;
+}
+
+.clinic-card {
+  width: 80%;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  box-shadow: 5px 10px 20px #b0b0b0;
+}
+
+.clinic-card i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+  color: #2BBFC4;
+}
+
+.clinic-card p {
+  margin: 8px 0;
+}
+
+
+.call-to-action {
+  background-image: linear-gradient(90deg, #169CE5, #027BBF);
+}
+
+.call-to-action h1 {
+  font-size: 2rem;
+}
+
+/* LOGIN / REGISTER */
+
+#password {
+  position: relative;
+}
+
+i.eye {
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
 }
