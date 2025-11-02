@@ -1,8 +1,7 @@
 <?php
   session_start();
-  //$_SESSION["username"] = "";
-  unset($_SESSION["username"]);
-
+  
+  include "components.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +53,7 @@
   </nav>
   
   <main class="py-4">
+    <?= showAlert(); ?>
     <section class="index-overview mx-3 mt-2 text-center">
       <h1 class="my-3 fw-semibold">Experience the <br> <span class="cb-gradient">Finest</span> in Dental Care</h1>
       <p class="fs-7">Trusted, world-class dental clinic since 2017. Discover your options. Visit us today!</p>
@@ -189,7 +189,6 @@
         </div>
       </div>
     </div>
-        
   </main>
   
   <footer class="pt-4">

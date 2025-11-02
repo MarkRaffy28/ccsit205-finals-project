@@ -7,9 +7,9 @@ CREATE TABLE users (
   last_name VARCHAR(50) NOT NULL,
   extension_name VARCHAR(5),
   age INT(3) NOT NULL,
-  gender ENUM('Male','Female') NOT NULL,
+  gender ENUM('Male','Female','Other') NOT NULL,
   birth_date DATE NOT NULL,
-  contact_number VARCHAR(10),
+  contact_number VARCHAR(11),
   email_address VARCHAR(100),
   address VARCHAR(255),
   date_registered TIMESTAMP DEFAULT CURRENT_TIMESTAMP

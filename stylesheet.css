@@ -93,7 +93,11 @@ footer .fa-solid {
 }
 
 
-/*  */
+/* GENERAL */
+.form-control[readonly]:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
 
 .bg-blue { background-color: #027BBF; }
 .bg-cyan { background-color: #2BBFC4; }
@@ -182,7 +186,6 @@ footer .fa-solid {
 }
 
 /* LOGIN / REGISTER */
-
 #password {
   position: relative;
 }
@@ -192,4 +195,13 @@ i.eye {
   top: 50%;
   right: 30px;
   transform: translateY(-50%);
+}
+
+/* PROFILE */
+@media(min-width: 800px) {
+  .profile {
+    --profile-margin-x: 10rem;
+    margin-left: var(--profile-margin-x) !important;
+    margin-right: var(--profile-margin-x) !important;
+  }
 }

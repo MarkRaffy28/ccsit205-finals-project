@@ -1,26 +1,29 @@
 //Show / Hide Password
-const forms = document.querySelector('form');
-forms.addEventListener("submit", event => {
-  if (event.submitter && event.submitter.hasAttribute("formnovalidate")) {
-    return;
-  }
+const forms = document.querySelectorAll('form');
+forms.forEach(form => {
+  form.addEventListener("submit", event => {
+    if (event.submitter && event.submitter.hasAttribute("formnovalidate")) {
+      return;
+    }
 
-  if (!forms.checkValidity()) {
-    event.preventDefault();
-  }
+    if (!form.checkValidity()) {
+      event.preventDefault();
+    }
   
-  forms.classList.add("was-validated");
+    form.classList.add("was-validated");
+  });
 });
 
-let togglePassword = document.querySelector('.eye')
-let passwordInput = document.getElementById('password') 
+const toggleButtons = document.querySelectorAll('.eye');
 
-togglePassword.addEventListener('click', () => {
-    let type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password'
-    passwordInput.setAttribute('type', type)
-    
-    togglePassword.classList.toggle('bi-eye')
-    togglePassword.classList.toggle('bi-eye-slash')      
+toggleButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const parent = button.closest('.form-floating');
+    const input = parent.querySelector('.input-password');
+
+    input.type = input.type === 'password' ? 'text' : 'password';
+
+    button.classList.toggle('bi-eye');
+    button.classList.toggle('bi-eye-slash');
+  });
 });
-    
-    

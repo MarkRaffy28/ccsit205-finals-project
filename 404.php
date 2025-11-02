@@ -13,7 +13,7 @@
   <a href="/register.html" class="btn btn-primary">Components</a>
   
   <script>
-    setTimeout(() => {window.location.href = "/register.php"}, 500)
+    setTimeout(() => {window.location.href = "/profile.php"}, 500)
   </script>
 </body>
 </html>
