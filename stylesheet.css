@@ -24,12 +24,12 @@
   box-shadow: none;
 }
 
-.nav-link {
+.navbar.nav-link {
   color: #ffffff;
 }
 
-.nav-link.active,
-.nav-link:hover {
+.navbar .nav-link.active,
+.navbar .nav-link:hover {
   color: #0f0f0f !important;
 }
 
@@ -60,13 +60,49 @@ footer .fa-solid {
 
 .fa-facebook:hover {color: #3b5998}
 
-/*  */
+
+/* GENERAL */
+@media(max-width: 800px){
+  main {
+    min-height: 100vh;
+  }
+}
+
+.form-control[readonly]:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.bg-blue { background-color: #027BBF; }
+.bg-cyan { background-color: #2BBFC4; }
+.border-cyan { border-color: #2BBFC4; }
+
+.cb-gradient {
+  background: linear-gradient(90deg, #2BBFC4, #027BBF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.fs-7 { font-size: 14px; }
+
+
+/* INDEX & SEEVICES */
 .services {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   grid-auto-rows: 150px;
   gap: 20px;
   background-color: #027BBF;
+}
+
+@media(min-width: 800px){
+  .services {
+    --services-padding-x: 10rem;
+    --services-padding-y: 5rem;
+    padding: var(--services-padding-y) var(--services-padding-x) !important;
+  }
 }
 
 .service {
@@ -92,32 +128,18 @@ footer .fa-solid {
   padding-left: 15px;
 }
 
-
-/* GENERAL */
-.form-control[readonly]:focus {
-  box-shadow: none;
-  border-color: #ced4da;
-}
-
-.bg-blue { background-color: #027BBF; }
-.bg-cyan { background-color: #2BBFC4; }
-.border-cyan { border-color: #2BBFC4; }
-
-.cb-gradient {
-  background: linear-gradient(90deg, #2BBFC4, #027BBF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-}
-
-.fs-7 { font-size: 14px; }
-
 /* INDEX */
 .index-content .overview h1 {
   font-size: 35px;
 }
 
+@media(min-width: 800px){
+  .index-services {
+    --services-padding-x: 10rem;
+    --services-padding-y: 0rem;        
+    padding: var(--services-padding-y) var(--services-padding-x) !important;
+  }
+}
 
 
 /* SERVICES */

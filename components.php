@@ -4,11 +4,108 @@
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
-  }
-  
-?>
+  } 
 
-<?php 
+//
+  function showHeader($pageTitle = "DenCare V.A.U.L.T", $pageName) {
+?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
+      <title> <?= ($pageTitle) ? "$pageTitle | DenCare V.A.U.L.T." : "$pageTitle" ?> </title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+      <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
+      
+      <link rel="stylesheet" href="stylesheet.css">
+      <script defer src="javascript.js"></script>
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg sticky-top" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">
+            <img src="https://dl.dropbox.com/scl/fi/22oiirmwtu6sa1qcd4e8d/logi.jpg?rlkey=ola10jhyofqvvuf6bpct8nysi&st=tiqqmj0l&dl=0" class="logo">
+            <span class="fw-bold navbar-title">DenCare V.A.U.L.T.</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
+            <i class="fa-solid fa-burger fa-1.5x"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbar-content">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link <?= ($pageName == "index") ? "active" : "" ?> fw-bold" href="index.php">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <?= ($pageName == "services") ? "active" : "" ?> fw-bold" href="services.php">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <?= ($pageName == "appointments") ? "active" : "" ?> fw-bold" href="appointments.php">Appointments</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <?= ($pageName == "profile") ? "active" : "" ?> fw-bold" href="profile.php">Profile</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search">
+              <button class="btn btn-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+<?php
+  }
+
+
+//
+  function showFooter() {
+?>
+      <footer class="pt-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <h5 class="fw-bold">About Us</h5>
+              <p>Our clinic is dedicated to providing quality and compassionate care for every patient.</p>
+            </div>
+            <div class="contact-us col-md-3 mb-3">
+              <h5 class="fw-bold">Contact Us</h5>
+              <ul class="list-unstyled">
+                <li>
+                  <a href="#"><i class="fa-solid fa-location-dot"></i>ICA Building, Sta. Lucia Poblacion, Narvacan, Ilocos Sur</a>     
+                </li>      
+                <li>
+                  <a href="#"><i class="fa-solid fa-phone"></i>(+63) 933-353-2123</a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa-solid fa-phone"></i>(+63) 955-482-1070</a>
+                </li>             
+              </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+              <h5 class="fw-bold">Follow Us</h5>
+              <a href=""><i class="fa-brands fa-facebook"></i></a>
+            </div>
+            <div class="col-md-3 mb-3">
+              <h5 class="fw-bold">Legal</h5>
+              <ul class="list-unstyled">
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms of Use</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="text-center py-3 border-top mt-3">
+            © 2025 DenCare V.A.U.L.T.
+          </div>
+        </div>
+      </footer>  
+    </body>
+    </html>
+<?php
+  }
+
+
+  //
   function showAlert() {  
     if(isset($_SESSION["msg"])): 
       $type = $_SESSION["msg"][0];
@@ -42,6 +139,6 @@
 <?php
       unset($_SESSION["msg"]);
     endif;
-   }
+  }
 ?>
 
