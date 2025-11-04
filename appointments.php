@@ -103,18 +103,21 @@ fetch("get_dates.php")
     const availableDates = Object.keys(data);
     const dateInput = document.getElementById('booking_date');
     const form = dateInput.closest('form');
-
+    
+    const minDate = availableDates[0];
+    const maxDate = availableDates[availableDates.length - 1];
+    dateInput.min = minDate;
+    dateInput.max = maxDate;
+    
     dateInput.addEventListener('input', function () {
       const selectedDate = this.value;
       if (!availableDates.includes(selectedDate)) {
-        // Create a hidden input to send error to PHP
         const errorInput = document.createElement('input');
         errorInput.type = 'hidden';
         errorInput.name = 'invalid_date';
         errorInput.value = selectedDate;
         form.appendChild(errorInput);
-
-        // Submit the form automatically
+        
         form.submit();
       } else {
         updateTimes(selectedDate, data[selectedDate]);
