@@ -10,4 +10,7 @@
     die("Connection Failed: " . $con->connect_error);
   }
   $conn->set_charset("utf8");
+
+  date_default_timezone_set('Asia/Manila');
+
 ?>

@@ -24,7 +24,7 @@
   box-shadow: none;
 }
 
-.navbar.nav-link {
+.navbar .nav-link {
   color: #ffffff;
 }
 
@@ -83,6 +83,14 @@ footer .fa-solid {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+}
+
+@media(min-width: 800px){
+  .px-lg-6 {
+    --mx-lg-6-padding-x: 10rem;       
+    padding-left: var(--mx-lg-6-padding-x);
+    padding-right: var(--mx-lg-6-padding-x);
+  }
 }
 
 .fs-7 { font-size: 14px; }

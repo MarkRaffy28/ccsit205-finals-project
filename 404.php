@@ -1,5 +1,5 @@
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,7 @@
   
   <script>
     setTimeout(() => {window.location.href =
-       "/appointments.php"}, 1000)
+      "/appointments.php"}, 1000)
   </script>
 </body>
 </html>

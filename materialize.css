@@ -1,0 +1,125 @@
+/* === Isolated Materialize Datepicker Styles (Bootstrap-compatible) === */
+.datepicker-modal {
+  position: fixed !important;
+  inset: 0;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 2000 !important;
+}
+
+.datepicker-container {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  width: 320px;
+  max-width: 90vw;
+  font-family: system-ui, sans-serif;
+}
+
+/* Header */
+.datepicker-date-display {
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+}
+.datepicker-date-display .date-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Calendar */
+.datepicker-calendar-container {
+  padding: 10px;
+}
+.datepicker-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+.datepicker-table td, .datepicker-table th {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.datepicker-table td.is-today {
+  border: 2px solid #007bff;
+}
+.datepicker-table td.is-selected {
+  background: #007bff;
+  color: #fff;
+}
+.datepicker-table td.is-disabled {
+  color: #ccc;
+  pointer-events: none;
+}
+
+/* Footer buttons */
+.datepicker-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-top: 1px solid #eee;
+}
+.datepicker-cancel,
+.datepicker-done {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Remove Bootstrap fade/show interference */
+.datepicker-modal.fade,
+.datepicker-modal.show {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+
+/* specifically target materialize datepicker classes */
+.datepicker-modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  z-index: 2000 !important;
+}
+
+/* container of the calendar itself */
+.datepicker-container {
+  width: 320px !important;
+  max-width: 90vw !important;
+  background: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25) !important;
+  overflow: hidden !important;
+}
+
+/* override any Bootstrap modal or fade conflicts */
+.modal.fade .datepicker-modal,
+.datepicker-modal.fade {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+/* Misc internal styling */
+.datepicker-date-display {
+  background-color: #007bff !important;
+  color: #fff !important;
+  padding: 16px !important;
+  text-align: center !important;
+}
+
+.datepicker-table td.is-disabled {
+  color: #ccc !important;
+  pointer-events: none !important;
+}

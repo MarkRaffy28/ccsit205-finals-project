@@ -14,3 +14,11 @@ CREATE TABLE users (
   address VARCHAR(255),
   date_registered TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE appointments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  date DATE NOT NULL,
+  start_time TIME NOT NULL,
+  end_time TIME NOT NULL,
+  is_booked TINYINT(1) DEFAULT 0
+)

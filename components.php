@@ -47,10 +47,13 @@
                 <a class="nav-link <?= ($pageName == "profile") ? "active" : "" ?> fw-bold" href="profile.php">Profile</a>
               </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search">
-              <button class="btn btn-success" type="submit">Search</button>
-            </form>
+            <?php if(isset($_SESSION["id"]) && isset($_SESSION["username"])): ?>
+              <form method="POST" action="logout.php">
+                <input type="submit" value="Logout" class="btn btn-sm btn-danger ms-2">
+              </form>
+            <?php else: ?>
+              <a href="login.php" class="btn btn-sm btn-success ms-2">Login</a>
+            <?php endif; ?>
           </div>
         </div>
       </nav>
