@@ -5,6 +5,9 @@
   if(!isset($_SESSION["id"]) || !isset($_SESSION["username"])) {
     header ("Location: index.php");
     exit();
+  } elseif($_SESSION["username"] == "admin") {
+    header ("Location: admin_dashboard.php");
+    exit();
   }
   
   include "config.php";
@@ -134,7 +137,7 @@
   ob_end_flush();
   $conn->close();
 
-  showHeader("Profile","profile")
+  showHeader("Profile")
 ?>
 
 <main class="py-4">

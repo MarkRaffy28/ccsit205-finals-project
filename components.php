@@ -7,14 +7,15 @@
   } 
 
 //
-  function showHeader($pageTitle = "DenCare V.A.U.L.T", $pageName) {
+  function showHeader($pageTitle) {
+    $pageName = ($pageTitle == "Home") ? "index" : strtolower(str_replace(" ","_",$pageTitle));
 ?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
-      <title> <?= ($pageTitle) ? "$pageTitle | DenCare V.A.U.L.T." : "$pageTitle" ?> </title>
+      <title> <?= ($pageTitle) ? "$pageTitle | DenCare V.A.U.L.T." : "DenCare V.A.U.L.T." ?> </title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
       <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
       <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
@@ -25,7 +26,7 @@
     <body>
       <nav class="navbar navbar-expand-lg sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="index.php">
             <img src="https://dl.dropbox.com/scl/fi/22oiirmwtu6sa1qcd4e8d/logi.jpg?rlkey=ola10jhyofqvvuf6bpct8nysi&st=tiqqmj0l&dl=0" class="logo">
             <span class="fw-bold navbar-title">DenCare V.A.U.L.T.</span>
           </a>
@@ -143,5 +144,106 @@
       unset($_SESSION["msg"]);
     endif;
   }
-?>
 
+
+  //
+  function showAdminSidebar($pageTitle) {
+    $pageName = ($pageTitle == "Home") ? "index" : strtolower(str_replace(" ","_",$pageTitle));
+?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
+      <title> <?= ($pageTitle) ? "Admin $pageTitle | DenCare V.A.U.L.T." : "DenCare V.A.U.L.T." ?> </title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+      <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
+      
+      <link rel="stylesheet" href="stylesheet.css">
+      <script defer src="javascript.js"></script>
+    </head>
+    <body>
+      <main>
+        <div class="container-fluid">
+          <div class="row flex-nowrap">
+            <div class="col-auto col-md-2 col-xl-2 px-sm-2 px-0 bg-dark">
+              <div class="d-flex flex-column align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                  <span class="fs-5 d-none d-sm-inline">Admin Panel</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-sm-start" id="menu">
+                  <li class="nav-item">
+                    <a href="admin_dashboard.php" class="nav-link <?= ($pageName == "dashboard") ? "fw-bold" : "" ?> text-white px-0 align-middle">
+                      <span><i class="bi bi-speedometer"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></span>  
+                  </a>
+                  </li>
+                  
+                  <li>
+                    <a href="#" class="nav-link text-white px-0 align-middle">
+                      <i class="bi bi-people"></i> <span class="ms-1 d-none d-sm-inline">Users</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a class="nav-link text-white px-0 align-middle d-flex justify-content-between" data-bs-toggle="collapse" href="#submenuAppointments" role="button" aria-expanded="false" aria-controls="submenuAppointments">
+                      <span><i class="bi bi-calendar"></i> <span class="ms-1 d-none d-sm-inline">Appointments</span></span>
+                      <span class="ps-1"><i class="bi bi-chevron-down"></i></span>
+                    </a>
+                  
+                    <div class="collapse ps-1" id="submenuAppointments">
+                      <ul class="nav flex-column">
+                        <li>
+                          <a href="admin_appointments_book.php" class="nav-link <?= ($pageName == "book_-_appointments") ? "fw-bold" : "" ?> text-white px-0">
+                          <span><i class="bi bi-book"></i> <span class="ms-1 d-none d-sm-inline">Book</span></span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>  
+                  
+                  <li>
+                    <a href="#" class="nav-link text-white px-0 align-middle">
+                      <i class="bi bi-currency-dollar"></i> <span class="ms-1 d-none d-sm-inline">Sales</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="#" class="nav-link text-white px-0 align-middle">
+                      <i class="bi bi-hourglass"></i> <span class="ms-1 d-none d-sm-inline">History</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="admin_datetime_slots.php" class="nav-link <?= ($pageName == "date_&_time_slots") ? "fw-bold" : "" ?> text-white px-0 align-middle">
+                      <i class="bi bi-clock"></i> <span class="ms-1 d-none d-sm-inline">Date & Time Slots</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="logout.php" class="nav-link text-white px-0 align-middle">
+                      <i class="bi bi-box-arrow-right"></i> <span class="ms-1 d-none d-sm-inline">Logout</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col">
+<?php
+  }
+
+
+  //
+  function showAdminFooter() {
+?>
+            </div>
+          </div>
+        </div>
+      </main>
+    </body>
+    </html>
+<?php
+  }
+?>

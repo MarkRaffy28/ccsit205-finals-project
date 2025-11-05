@@ -1,8 +1,15 @@
 <?php
   session_start();
+
+  if(!isset($_SESSION["id"]) || !isset($_SESSION["username"])) {
+    header ("Location: index.php");
+    exit();
+  } elseif($_SESSION["username"] == "admin") {
+    header ("Location: admin_dashboard.php");
+    exit();
+  }
   
   include "components.php";
-  showHeader("Appointments", "appointments");
   
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     switch ($_POST["action"]) {
@@ -10,13 +17,16 @@
         $_SESSION["msg"] = ["success", $_POST["booking_service"]];
       }
     }
-
+    
     if (isset($_POST["invalid_date"])) {
       $_SESSION["msg"] = ["danger", "This date is not available for booking."];
       header("Location: " . $_SERVER["PHP_SELF"]);
-    exit;
+      exit;
     }
-  showAlert();
+    showAlert();
+    
+    
+  showHeader("Appointments");
 ?>
 
 <main class="py-4" data-bs-theme="light">
