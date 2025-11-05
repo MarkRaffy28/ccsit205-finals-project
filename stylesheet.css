@@ -85,6 +85,8 @@ footer .fa-solid {
   color: transparent;
 }
 
+.border-primary.border-bottom-4 { border-bottom: 3px solid var(--bs-primary) !important; }
+
 @media(min-width: 800px){
   .px-lg-6 {
     --mx-lg-6-padding-x: 10rem;       
@@ -234,4 +236,9 @@ i.eye {
     margin-left: var(--profile-margin-x) !important;
     margin-right: var(--profile-margin-x) !important;
   }
+}
+
+table {
+  box-sizing: border-box;
+  width: 100%;
 }

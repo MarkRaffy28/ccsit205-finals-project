@@ -1,0 +1,35 @@
+<div class="modal fade" id="change_username" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-4">
+    <div class="modal-content">
+    <div class="modal-header pb-0 border-0">          
+        <h4 class="modal-title w-100 text-center fw-bold m-0 p-0">CHANGE USERNAME</h4>  
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>      
+    <div class="modal-body">
+        <form method="POST" novalidate>
+        <div class="row mb-2">
+            <input type="hidden" name="action" value="change_username">
+            <div class="col-sm form-floating">
+            <input type="text" class="form-control" id="new_username" name="new_username" placeholder="New Username" pattern="[A-Za-z0-9._]+" required>
+            <label for="new_username" class="form-label ps-4">New Username</label>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="d-flex justify-content-center mt-4 mb-2">
+            <button type="button" class="btn btn-md btn-danger rounded-3 px-3 me-3" data-bs-dismiss="modal">Cancel</button>
+            <input type="submit" value="Update" class="btn btn-success">
+            </div>
+        </div>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+#SELECT
+<select id="gender" name="gender" class="form-select ps-4" required>
+    <option <?= $row["gender"] == "Male" ? "selected" : ""?> value="Male">Male</option>
+    <option <?= $row["gender"] == "Female" ? "selected" : ""?> value="Female">Female</option>
+    <option <?= $row["gender"] == "Other" ? "selected" : ""?> value="Other">Other</option>
+</select>
+<label for="gender" class="form-label ps-4">Select Gender</label>

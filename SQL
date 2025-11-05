@@ -15,7 +15,7 @@ CREATE TABLE users (
   date_registered TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE appointments (
+CREATE TABLE date_time_slot (
   id INT AUTO_INCREMENT PRIMARY KEY,
   date DATE NOT NULL,
   start_time TIME NOT NULL,

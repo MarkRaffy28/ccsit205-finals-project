@@ -148,6 +148,11 @@
 
   //
   function showAdminSidebar($pageTitle) {
+    if (!isset($_SESSION["username"]) && !($_SESSION["username"]) == "admin") {
+      header ("Location: index.php");
+      exit();
+    }
+
     $pageName = ($pageTitle == "Home") ? "index" : strtolower(str_replace(" ","_",$pageTitle));
 ?>
     <!DOCTYPE html>
@@ -162,7 +167,7 @@
       <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
       <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
       
-      <link rel="stylesheet" href="stylesheet.css">
+      <link rel="stylesheet" href="stylesheet.css?v=<?= time(); ?>">
       <script defer src="javascript.js"></script>
     </head>
     <body>
@@ -230,7 +235,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col">
+            <div class="col-auto cold-md-10 col-xl-10">
 <?php
   }
 
