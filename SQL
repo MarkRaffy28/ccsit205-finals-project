@@ -15,10 +15,25 @@ CREATE TABLE users (
   date_registered TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE date_time_slot (
+CREATE TABLE date_time_slots (
   id INT AUTO_INCREMENT PRIMARY KEY,
   date DATE NOT NULL,
   start_time TIME NOT NULL,
   end_time TIME NOT NULL,
-  is_booked TINYINT(1) DEFAULT 0
-)
+  status ENUM('Available','Booked','Completed') DEFAULT 'Available',
+  slot_count INT DEFAULT 1,
+  UNIQUE KEY unique_slot (date, start_time, end_time)
+);
+
+username username
+password password
+first_name first_name
+middle_name middle_name 
+last_name last_name
+extension_name extension_name
+age age
+gender gender
+birth_date birth_date
+contact_number contact_number
+email_address email_address
+address address

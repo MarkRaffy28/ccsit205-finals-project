@@ -22,7 +22,7 @@
       header("Location: admin_dashboard.php");
       exit();
     }
-       
+      
     if ($stmt->fetch()) {
       if (password_verify($password, $hashed_password)) {
         $_SESSION["msg"] = ["success", "Login Successfull."];

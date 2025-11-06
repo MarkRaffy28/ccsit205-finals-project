@@ -174,7 +174,7 @@
       <main>
         <div class="container-fluid">
           <div class="row flex-nowrap">
-            <div class="col-auto col-md-2 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="col-2 col-md-2 col-xl-2 px-sm-2 px-0 bg-dark">
               <div class="d-flex flex-column align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                   <span class="fs-5 d-none d-sm-inline">Admin Panel</span>
@@ -187,7 +187,7 @@
                   </li>
                   
                   <li>
-                    <a href="#" class="nav-link text-white px-0 align-middle">
+                    <a href="admin_users.php" class="nav-link <?= ($pageName == "users") ? "fw-bold" : "" ?> text-white px-0 align-middle">
                       <i class="bi bi-people"></i> <span class="ms-1 d-none d-sm-inline">Users</span>
                     </a>
                   </li>
@@ -235,7 +235,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-auto cold-md-10 col-xl-10">
+            <div class="col-10 col-md-10 col-xl-10">
 <?php
   }
 
