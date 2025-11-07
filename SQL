@@ -31,7 +31,7 @@ CREATE TABLE appointments (
   slot_id INT NOT NULL,
   service_id INT NOT NULL,
   booking_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-  status ENUM('Pending', 'Approved', 'Completed', 'Cancelled') DEFAULT 'Pending',
+  status ENUM('Declined', 'Pending', 'Approved', 'Cancelled','Completed') DEFAULT 'Pending',
   notes TEXT,
   payment_amount INT,
   UNIQUE KEY unique_patient_slot (patient_id, slot_id),

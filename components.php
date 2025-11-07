@@ -17,6 +17,7 @@
       <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
       <title> <?= ($pageTitle) ? "$pageTitle | DenCare V.A.U.L.T." : "DenCare V.A.U.L.T." ?> </title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
       <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
       <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
       
@@ -50,10 +51,10 @@
             </ul>
             <?php if(isset($_SESSION["id"]) && isset($_SESSION["username"])): ?>
               <form method="POST" action="logout.php">
-                <input type="submit" value="Logout" class="btn btn-sm btn-danger ms-2">
+                <input type="submit" value="Logout" class="btn btn-sm btn-danger ms-lg-2">
               </form>
             <?php else: ?>
-              <a href="login.php" class="btn btn-sm btn-success ms-2">Login</a>
+              <a href="login.php" class="btn btn-sm btn-success ms-lg-2">Login</a>
             <?php endif; ?>
           </div>
         </div>

@@ -3,7 +3,7 @@
   
   include "components.php";
   
-  showHeader("Home","index");
+  showHeader("Home");
 ?>
   
 <main class="py-4">
