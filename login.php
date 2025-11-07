@@ -53,7 +53,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="stylesheet.css">
-  <script defer src="JavaScript.js"></script>
+  <script defer src="javascript.js?v=<?= time(); ?>"></script>
   <style>
     main {
       min-height: 100vh;

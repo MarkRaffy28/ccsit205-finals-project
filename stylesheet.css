@@ -86,6 +86,7 @@ footer .fa-solid {
 }
 
 .border-primary.border-bottom-4 { border-bottom: 3px solid var(--bs-primary) !important; }
+.hidden { display: none; }
 
 @media(min-width: 800px){
   .px-lg-6 {
@@ -98,7 +99,7 @@ footer .fa-solid {
 .fs-7 { font-size: 14px; }
 
 
-/* INDEX & SEEVICES */
+/* INDEX & SERVICES */
 .services {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -227,6 +228,7 @@ i.eye {
   top: 50%;
   right: 30px;
   transform: translateY(-50%);
+  z-index: 20;
 }
 
 /* PROFILE */

@@ -228,7 +228,7 @@
                   </li>
 
                   <li>
-                    <a href="logout.php" class="nav-link text-white px-0 align-middle">
+                    <a href="logout.php" class="nav-link text-danger px-0 align-middle">
                       <i class="bi bi-box-arrow-right"></i> <span class="ms-1 d-none d-sm-inline">Logout</span>
                     </a>
                   </li>

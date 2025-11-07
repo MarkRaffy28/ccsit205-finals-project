@@ -22,10 +22,10 @@
         exit;
       }
       
-      $stmt_insert_dts = $conn->prepare("INSERT INTO date_time_slots(date, start_time, end_time, slot_count) VALUES (?, ?, ?, ?)");
-      $stmt_insert_dts->bind_param("sssi", $date, $start_time, $end_time, $slot_count);
+      $stmt_add_dts = $conn->prepare("INSERT INTO date_time_slots(date, start_time, end_time, slot_count) VALUES (?, ?, ?, ?)");
+      $stmt_add_dts->bind_param("sssi", $date, $start_time, $end_time, $slot_count);
       
-      if (!$stmt_insert_dts->execute()) {
+      if (!$stmt_add_dts->execute()) {
         $_SESSION["msg"] = ["danger", "Insert error. Please try again later."];
       }
       $_SESSION["msg"] = ["success", "Date & time slot added successfully"];
@@ -39,6 +39,17 @@
       $edit_slot_count = test_input($_POST["edit_slot_count"]);
       $edit_start_time = test_input($_POST["edit_start_time"]);
       $edit_end_time = test_input($_POST["edit_end_time"]);
+      
+      $stmt_check_dts = $conn->prepare("SELECT id FROM date_time_slots WHERE date = ? AND start_time = ? AND end_time = ?");
+      $stmt_check_dts->bind_param("sss", $edit_date, $edit_start_time, $edit_end_time);
+      $stmt_check_dts->execute();
+      $result_check_dts = $stmt_check_dts->get_result();
+      
+      if ($result_check_dts->num_rows > 0) {
+        $_SESSION["msg"] = ["danger", "This date and time slot already exists."];
+        header("Location: " . $_SERVER["PHP_SELF"]);
+        exit;
+      }
       
       $stmt_edit_dts = $conn->prepare("UPDATE date_time_slots SET
           date = ?,
@@ -264,7 +275,7 @@
           <div class="row m-2">
             <div class="d-flex justify-content-center mt-4 mb-2">
               <button type="button" class="btn btn-md btn-danger rounded-3 px-3 me-3" data-bs-dismiss="modal">Cancel</button>
-              <input type="submit" name="edit_datetime_slot" class="btn btn-success">
+              <input type="submit" name="edit_datetime_slot" value="Update" class="btn btn-success">
             </div>
           </div>
         </form>
@@ -297,37 +308,37 @@
 </div>
 
 <script>
-document.querySelectorAll(".edit-button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.getElementById("edit_id").value = btn.dataset.id;
-    document.getElementById("edit_date").value = btn.dataset.date;
-    document.getElementById("edit_slot_count").value = btn.dataset.slotcount;
-    
-    document.querySelectorAll("#edit_start_time option").forEach(opt => {
-      if (opt.value == btn.dataset.starttime) {
-        opt.setAttribute("selected", "selected");
-      }
-    });
+  document.querySelectorAll(".edit-button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.getElementById("edit_id").value = btn.dataset.id;
+      document.getElementById("edit_date").value = btn.dataset.date;
+      document.getElementById("edit_slot_count").value = btn.dataset.slotcount;
+      
+      document.querySelectorAll("#edit_start_time option").forEach(opt => {
+        if (opt.value == btn.dataset.starttime) {
+          opt.setAttribute("selected", "selected");
+        }
+      });
 
-    document.querySelectorAll("#edit_end_time option").forEach(opt => {
-      if (opt.value == btn.dataset.endtime) {
-        opt.setAttribute("selected", "selected");
-      }
+      document.querySelectorAll("#edit_end_time option").forEach(opt => {
+        if (opt.value == btn.dataset.endtime) {
+          opt.setAttribute("selected", "selected");
+        }
+      });
+      
+      const modal = new bootstrap.Modal(document.getElementById("edit_datetime_slot"));
+      modal.show();
     });
-    
-    const modal = new bootstrap.Modal(document.getElementById("edit_datetime_slot"));
-    modal.show();
   });
-});
 
-document.querySelectorAll(".delete-button").forEach(btn => {
-  btn.addEventListener("click", ()=> {
-    document.getElementById("delete_id").value = btn.dataset.id;
-    
-    const modal = new bootstrap.Modal(document.getElementById("delete_datetime_slot"));
-    modal.show();
+  document.querySelectorAll(".delete-button").forEach(btn => {
+    btn.addEventListener("click", ()=> {
+      document.getElementById("delete_id").value = btn.dataset.id;
+      
+      const modal = new bootstrap.Modal(document.getElementById("delete_datetime_slot"));
+      modal.show();
+    });
   });
-});
 </script>
 <?php
   showAdminFooter();  

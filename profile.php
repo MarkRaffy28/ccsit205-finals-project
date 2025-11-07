@@ -36,6 +36,8 @@
       
       if ($result_chck_usrnm->num_rows > 0 || $new_username == "admin") {
         $_SESSION["msg"] = ["danger", "Username already exists."];
+        header ("Location: " . $_SERVER["PHP_SELF"]);
+        exit;
       }
         
       $stmt_updt_usrnm = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");

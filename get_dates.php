@@ -2,23 +2,26 @@
   header('Content-Type: application/json');
   include "config.php";
 
-  $sql = "SELECT date, start_time, end_time FROM date_time_slots WHERE is_booked = 0 ORDER BY date, start_time";
+  $sql = "SELECT id, date, start_time, end_time, slot_count FROM date_time_slots WHERE status = 'Available' ORDER BY date,start_time";
   $result = $conn->query($sql);
-
   $available = [];
 
   while ($row = $result->fetch_assoc()) {
+    $id = $row["id"];
     $date = $row['date'];
     $start = $row['start_time'];
     $end = $row['end_time'];
+    $slot = $row['slot_count'];
 
     if (!isset($available[$date])) {
       $available[$date] = [];
     }
 
     $available[$date][] = [
+      'id' => $id,
       'start_time' => $start,
-      'end_time' => $end
+      'end_time' => $end,
+      'slot_count' => $slot
     ];
   }
 

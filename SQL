@@ -25,6 +25,20 @@ CREATE TABLE date_time_slots (
   UNIQUE KEY unique_slot (date, start_time, end_time)
 );
 
+CREATE TABLE appointments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  patient_id INT NOT NULL,
+  slot_id INT NOT NULL,
+  service_id INT NOT NULL,
+  booking_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  status ENUM('Pending', 'Approved', 'Completed', 'Cancelled') DEFAULT 'Pending',
+  notes TEXT,
+  payment_amount INT,
+  UNIQUE KEY unique_patient_slot (patient_id, slot_id),
+  FOREIGN KEY (patient_id) REFERENCES users(id),
+  FOREIGN KEY (slot_id) REFERENCES date_time_slots(id)
+);
+
 username username
 password password
 first_name first_name
