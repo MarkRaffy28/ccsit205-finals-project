@@ -2,79 +2,150 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dental Appointment</title>
+  <title>Modern Bootstrap Datepicker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- MaterializeCSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Datepicker -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      max-width: 420px;
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #0d6efd, #4dabf7);
+      color: #fff;
+      text-align: center;
+      font-weight: 600;
+      border-radius: 1rem 1rem 0 0;
+      padding: 1rem;
+    }
+
+    .datepicker {
+      border: none !important;
+      border-radius: 1rem !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    .datepicker-dropdown {
+      padding: 0.5rem !important;
+    }
+
+    .datepicker table tr td,
+    .datepicker table tr th {
+      border-radius: 8px;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .datepicker table tr td.day:hover {
+      background-color: #e7f1ff;
+      color: #0d6efd;
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+
+    .datepicker table tr td.active,
+    .datepicker table tr td.active:hover {
+      background-color: #0d6efd !important;
+      color: #fff !important;
+      font-weight: 600;
+      box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.3);
+    }
+
+    .datepicker table tr td.today {
+      background-color: #cfe2ff !important;
+      color: #0d6efd !important;
+      font-weight: 500;
+    }
+
+    .datepicker table tr td.disabled,
+    .datepicker table tr td.disabled:hover {
+      color: #adb5bd !important;
+      background: none !important;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .form-control[disabled] {
+      background-color: #e9ecef !important;
+    }
+  </style>
 </head>
-<body class="container" style="margin-top:50px">
 
-  <h5>Select Appointment Date & Time</h5>
-
-  <!-- Date Picker -->
-  <div class="input-field">
-    <input type="text" id="datepicker" class="datepicker">
-    <label for="datepicker">Choose a date</label>
+<body>
+  <div class="card">
+    <div class="card-header">
+      Select Appointment Date
+    </div>
+    <div class="card-body p-4">
+      <div class="mb-3">
+        <label for="booking_date" class="form-label fw-semibold">Appointment Date</label>
+        <input type="text" id="booking_date" class="form-control" placeholder="Loading available dates...">
+      </div>
+      <p class="text-muted small mb-0">Only available appointment dates can be selected.</p>
+    </div>
   </div>
 
-  <!-- Time Dropdown -->
-  <div class="input-field">
-    <select id="timeSelect" disabled>
-      <option value="" disabled selected>Select a time</option>
-    </select>
-    <label>Available Time Slots</label>
-  </div>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Bootstrap Datepicker JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
 
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    fetch("get_dates.php")
-      .then(res => res.json())
-      .then(data => {
-        // Extract available dates (keys of the object)
-        const availableDates = Object.keys(data);
+    const availableDates = [
+      "2025-11-10",
+      "2025-11-12",
+      "2025-11-15"
+    ];
 
-        // Initialize Materialize datepicker
-        const dateElems = document.querySelectorAll('.datepicker');
-        const datePicker = M.Datepicker.init(dateElems, {
-          format: 'yyyy-mm-dd',
-          disableDayFn: date => {
-            const d = date.toISOString().split('T')[0]
-            return !availableDates.includes(d); // only enable available dates
-          },
-          onSelect: date => {
-            const selectedDate = date.toISOString().split('T')[0];
-            updateTimes(selectedDate, data[selectedDate]);
-          }
-        })[0]; // get the instance
+    const dateInput = $("#booking_date");
 
-        // Initialize Materialize select
-        const timeSelect = document.getElementById('timeSelect');
-        M.FormSelect.init(timeSelect);
+    setTimeout(() => {
+      if (availableDates.length === 0) {
+        dateInput.prop("disabled", true);
+        dateInput.attr("placeholder", "No available dates");
+        return;
+      }
 
-        // Function to update available time slots
-        function updateTimes(selectedDate, times) {
-          timeSelect.innerHTML = `<option value="" disabled selected>Select a time</option>`;
-          
-          if (times && times.length > 0) {
-            times.forEach(time => {
-              const option = document.createElement("option");
-              option.value = time;
-              option.textContent = time;
-              timeSelect.appendChild(option);
-            });
-            timeSelect.disabled = false;
-          } else {
-            const option = document.createElement("option");
-            option.textContent = "No available time slots";
-            timeSelect.appendChild(option);
-            timeSelect.disabled = true;
-          }
-
-          M.FormSelect.init(timeSelect);
+      dateInput.datepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayHighlight: true,
+        beforeShowDay: function (date) {
+          const formatted = date.toISOString().split("T")[0];
+          return availableDates.includes(formatted)
+            ? { enabled: true, classes: "fw-bold text-dark"}
+            : false;
         }
       });
-  });
+
+      dateInput.attr("placeholder", "Select available date");
+    }, 800);
   </script>
 </body>
 </html>

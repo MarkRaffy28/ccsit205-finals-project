@@ -51,15 +51,15 @@
         exit;
       }
       
-      $stmt_edit_dts = $conn->prepare("UPDATE date_time_slots SET
+      $stmt_updt_dts = $conn->prepare("UPDATE date_time_slots SET
           date = ?,
           start_time = ?,
           end_time = ?,
           slot_count = ?
         WHERE id = ?");
-      $stmt_edit_dts->bind_param("sssii", $edit_date, $edit_start_time, $edit_end_time, $edit_slot_count, $edit_id);
+      $stmt_updt_dts->bind_param("sssii", $edit_date, $edit_start_time, $edit_end_time, $edit_slot_count, $edit_id);
       
-      if (!$stmt_edit_dts->execute()) {
+      if (!$stmt_updt_dts->execute()) {
         $_SESSION["msg"] = ["danger", "Update error. Please try again later."];
       }
       $_SESSION["msg"] = ["success", "Date & time slot updated successfully"];

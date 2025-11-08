@@ -34,7 +34,6 @@ CREATE TABLE appointments (
   status ENUM('Declined', 'Pending', 'Approved', 'Cancelled','Completed') DEFAULT 'Pending',
   notes TEXT,
   payment_amount INT,
-  UNIQUE KEY unique_patient_slot (patient_id, slot_id),
   FOREIGN KEY (patient_id) REFERENCES users(id),
   FOREIGN KEY (slot_id) REFERENCES date_time_slots(id)
 );

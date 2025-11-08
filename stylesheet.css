@@ -62,11 +62,10 @@ footer .fa-solid {
 
 
 /* GENERAL */
-@media(max-width: 800px){
-  main {
-    min-height: 100vh;
-  }
+main {
+  min-height: 100vh;
 }
+
 
 .form-control[readonly]:focus {
   box-shadow: none;
