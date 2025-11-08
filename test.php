@@ -49,14 +49,16 @@
 
     .datepicker table tr td,
     .datepicker table tr th {
-      border-radius: 8px;
+      /* border-radius: 8px; */
       text-align: center;
       transition: 0.2s;
     }
 
-    .datepicker table tr td.day:hover {
-      background-color: #e7f1ff;
-      color: #0d6efd;
+    .datepicker table tr td.day:hover,
+    .datepicker table tr td.today:hover {
+      background-color: #e7f1ff !important;
+      background-image: none !important;
+      color: #0d6efd !important;
       cursor: pointer;
       transform: scale(1.05);
     }
@@ -64,15 +66,16 @@
     .datepicker table tr td.active,
     .datepicker table tr td.active:hover {
       background-color: #0d6efd !important;
+      background-image: none !important; 
+      font-weight: 500;
       color: #fff !important;
-      font-weight: 600;
-      box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.3);
     }
 
     .datepicker table tr td.today {
-      background-color: #cfe2ff !important;
-      color: #0d6efd !important;
-      font-weight: 500;
+      border: 1px solid black !important;
+      background-color: #fff !important;
+      background-image: none !important; 
+      color: #000 !important;
     }
 
     .datepicker table tr td.disabled,
@@ -118,6 +121,8 @@
 
   <script>
     const availableDates = [
+      "2025-11-08",
+      "2025-11-09",
       "2025-11-10",
       "2025-11-12",
       "2025-11-15"
@@ -133,13 +138,13 @@
       }
 
       dateInput.datepicker({
-        format: "yyyy-mm-dd",
+        format: "MM dd, yyyy",
         autoclose: true,
         todayHighlight: true,
         beforeShowDay: function (date) {
           const formatted = date.toISOString().split("T")[0];
           return availableDates.includes(formatted)
-            ? { enabled: true, classes: "fw-bold text-dark"}
+            ? { enabled: true}
             : false;
         }
       });
