@@ -204,7 +204,7 @@
                   </li>
                   
                   <li>
-                    <a class="nav-link <?= ($pageName == "book_-_appointments" || $pageName == "requests_-_appointments") ? "fw-bold" : "" ?> text-white px-0 align-middle d-flex justify-content-between" data-bs-toggle="collapse" href="#submenuAppointments" role="button" aria-expanded="false" aria-controls="submenuAppointments">
+                    <a class="nav-link <?= ($pageName == "book_-_appointments" || $pageName == "requests_-_appointments" || $pageName == "upcoming_-_appointments") ? "fw-bold" : "" ?> text-white px-0 align-middle d-flex justify-content-between" data-bs-toggle="collapse" href="#submenuAppointments" role="button" aria-expanded="false" aria-controls="submenuAppointments">
                       <span class="d-flex"><i class="bi bi-calendar"></i> <span class="ms-1 d-none d-sm-inline">Appointments</span></span>
                       <span class="ps-1"><i class="bi bi-chevron-down"></i></span>
                     </a>
@@ -218,7 +218,12 @@
                         </li>
                         <li>
                           <a href="admin_appointments_requests.php" class="nav-link <?= ($pageName == "requests_-_appointments") ? "fw-bold" : "" ?> text-white px-0">
-                            <span class="d-flex"><i class="bi bi-file-text"></i> <span class="ms-1 d-none d-sm-inline">Appointment Requests</span></span>
+                            <span class="d-flex"><i class="bi bi-file-text"></i> <span class="ms-1 d-none d-sm-inline">Requests</span></span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="admin_appointments_upcoming.php" class="nav-link <?= ($pageName == "upcoming_-_appointments") ? "fw-bold" : "" ?> text-white px-0">
+                            <span class="d-flex"><i class="bi bi-bell"></i> <span class="ms-1 d-none d-sm-inline">Upcoming</span></span>
                           </a>
                         </li>
                       </ul>

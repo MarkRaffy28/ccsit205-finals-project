@@ -1,8 +1,25 @@
 <?php
   session_start();
-
+  
   include "config.php";
   include "components.php";
+  
+  if (isset($_POST["approve_appointment"])) {
+    $approve_appt_id = test_input($_POST["approve_appointment"]);
+    
+    $stmt_approve_appt = $conn->prepare("UPDATE appointments SET status = 'Approved' WHERE id = ?");
+    $stmt_approve_appt->bind_param("i", $approve_appt_id);
+    
+    if (!$stmt_approve_appt->execute()) {
+      $_SESSION["msg"] = ["danger", "Approve error. Please try again later."];
+      header ("Location: " . $_SERVER["PHP_SELF"]);
+      exit;
+    }
+    
+    $_SESSION["msg"] = ["success", "Appointment approved successfully"];
+    header ("Location: " . $_SERVER["PHP_SELF"]);
+    exit;
+  }
   
   if (isset($_POST["edit_appointment_request"])) {
     $edit_patient_id = test_input($_POST["edit_user_id"]);
@@ -66,40 +83,30 @@
     exit;
   }
   
-  if (isset($_POST["cancel_appointment"])) {
-    $cancel_appt_id = test_input($_POST["cancel_appt_id"]);
+  if (isset($_POST["decline_appointment"])) {
+    $decline_appt_id = test_input($_POST["decline_appt_id"]);
     
-    $stmt_cancel_appt = $conn->prepare("UPDATE appointments SET status = 'Cancelled' WHERE id = ?");
-    $stmt_cancel_appt->bind_param("i", $cancel_appt_id);
+    $stmt_decline_appt = $conn->prepare("UPDATE appointments SET status = 'Declined' WHERE id = ?");
+    $stmt_decline_appt->bind_param("i", $decline_appt_id);
     
-    if (!$stmt_cancel_appt->execute()) {
-      $_SESSION["msg"] = ["danger", "Cancel error. Please try again later."];
+    if (!$stmt_decline_appt->execute()) {
+      $_SESSION["msg"] = ["danger", "Decline error. Please try again later."];
       header ("Location: " . $_SERVER["PHP_SELF"]);
       exit;
     }
+    
+    $stmt_get_curr_slot_id = $conn->prepare("SELECT slot_id FROM appointments WHERE id = ?");
+    $stmt_get_curr_slot_id->bind_param("i", $decline_appt_id);
+    $stmt_get_curr_slot_id->execute();
+    $stmt_get_curr_slot_id->bind_result($current_slot_id);
+    $stmt_get_curr_slot_id->fetch();
+    $stmt_get_curr_slot_id->close();
     
     $stmt_incr_slot_count = $conn->prepare("UPDATE date_time_slots SET slot_count = slot_count + 1 WHERE id = ?");
     $stmt_incr_slot_count->bind_param("i", $current_slot_id);
     $stmt_incr_slot_count->execute();
     
-    $_SESSION["msg"] = ["success", "Appointment cancelled successfully"];
-    header ("Location: " . $_SERVER["PHP_SELF"]);
-    exit;
-  }
-  
-  if (isset($_POST["approve_appointment"])) {
-    $approve_appt_id = test_input($_POST["approve_appointment"]);
-    
-    $stmt_approve_appt = $conn->prepare("UPDATE appointments SET status = 'Approved' WHERE id = ?");
-    $stmt_approve_appt->bind_param("i", $approve_appt_id);
-    
-    if (!$stmt_approve_appt->execute()) {
-      $_SESSION["msg"] = ["danger", "Approve error. Please try again later."];
-      header ("Location: " . $_SERVER["PHP_SELF"]);
-      exit;
-    }
-    
-    $_SESSION["msg"] = ["success", "Appointment approved successfully"];
+    $_SESSION["msg"] = ["success", "Appointment declined successfully"];
     header ("Location: " . $_SERVER["PHP_SELF"]);
     exit;
   }
@@ -213,8 +220,8 @@
                   >
                     <i class="bi bi-pencil me-1"></i>Edit
                   </button>
-                  <button class="cancel-button btn btn-sm btn-danger" data-id="<?= $row["appointment_id"] ?>">
-                    <i class="bi bi-x-circle me-1"></i>Cancel
+                  <button class="decline-button btn btn-sm btn-danger" data-id="<?= $row["appointment_id"] ?>">
+                    <i class="bi bi-ban  me-1"></i>Decline
                   </button>
                 </div>
               </td>
@@ -279,22 +286,22 @@
   </div>
 </div>
 
-<div class="modal fade p-4" id="cancel_appointment" tabindex="-1">
+<div class="modal fade p-4" id="decline_appointment" tabindex="-1">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
     <div class="modal-content rounded-4 shadow">
       <div class="modal-header border-0">
-        <h5 class="modal-title w-100 text-center fw-bold">CANCEL APPOINTMENT?</h5>
+        <h5 class="modal-title w-100 text-center fw-bold">DECLINE APPOINTMENT?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>     
       <div class="modal-body text-center">
         <i class="fa-solid fa-triangle-exclamation fa-4x text-danger mb-3"></i>
-        <p class="mb-0 px-2">Are you sure you want to this appointment? This action cannot be undone.</p>
+        <p class="mb-0 px-2">Are you sure you want to decline this appointment? This action cannot be undone.</p>
       </div>      
       <div class="modal-footer border-0 d-flex justify-content-center">
         <button type="button" class="btn btn-secondary rounded-3 px-4" data-bs-dismiss="modal">Close</button>
         <form method="POST">
-          <input type="hidden" name="cancel_appt_id" id="cancel_appt_id">
-          <input type="submit" name="cancel_appointment" value="Yes, Cancel" class="btn bg-danger text-light rounded-3 px-4">
+          <input type="hidden" name="decline_appt_id" id="decline_appt_id">
+          <input type="submit" name="decline_appointment" value="Yes, Decline" class="btn bg-danger text-light rounded-3 px-4">
         </form>
       </div>
     </div>
@@ -444,22 +451,22 @@
             });
           })
           .catch(err => console.error("Error loading dates:", err));
-
+        
         const modal = new bootstrap.Modal(document.getElementById("edit_appointment_request"));
         modal.show();
       });
     });
   })
   
-  document.querySelectorAll(".cancel-button").forEach(btn => {
+  document.querySelectorAll(".decline-button").forEach(btn => {
     btn.addEventListener("click", ()=> {
-      document.getElementById("cancel_appt_id").value = btn.dataset.id;
+      document.getElementById("decline_appt_id").value = btn.dataset.id;
       
-      const modal = new bootstrap.Modal(document.getElementById("cancel_appointment"));
+      const modal = new bootstrap.Modal(document.getElementById("decline_appointment"));
       modal.show();
     });
   });
-
+  
   document.querySelectorAll(".approve-button").forEach(btn => {
     btn.addEventListener("click", () => {
       const form = document.createElement("form");
@@ -476,7 +483,6 @@
       form.submit();
     });
   });
-
 </script>
 
 <?php

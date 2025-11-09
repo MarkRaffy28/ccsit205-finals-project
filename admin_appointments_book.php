@@ -67,7 +67,7 @@
       }
       
       $_SESSION["msg"] = ["success", "Appointment request submitted successfully"];
-      header ("Location: " . $_SERVER["PHP_SELF"]);
+      header ("Location: admin_appointments_requests.php");
       exit;
     }
   
