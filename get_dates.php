@@ -2,7 +2,7 @@
   header('Content-Type: application/json');
   include "config.php";
 
-  $sql = "SELECT id, date, start_time, end_time, slot_count FROM date_time_slots WHERE status = 'Available' ORDER BY date,start_time";
+  $sql = "SELECT id, date, start_time, end_time, slot_count FROM date_time_slots WHERE slot_count > 0 ORDER BY date,start_time";
   $result = $conn->query($sql);
   $available = [];
 

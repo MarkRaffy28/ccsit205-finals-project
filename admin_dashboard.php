@@ -3,7 +3,8 @@
 
   include "components.php";
 
-  showAdminSidebar("Dashboard")
+  showAdminSidebar("Dashboard");
+  showAlert();
 ?>
 
 nigga

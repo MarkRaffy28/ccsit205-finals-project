@@ -157,6 +157,8 @@
             <th class="text-center">Contact Number</th>
             <th class="text-center hidden-column hidden">E-mail Address</th>
             <th class="text-center">Address</th>
+            <th class="text-center">Book</th>
+            <th class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -164,7 +166,10 @@
             $stmt_fetch_datetime = $conn->prepare("SELECT * FROM users");
             $stmt_fetch_datetime->execute();
             $result = $stmt_fetch_datetime->get_result();
-
+            
+            if ($result->num_rows === 0) {
+              echo '<tr><td colspan="11" class="text-center text-muted fw-semibold mt-4">No users available.</td></tr>';
+            }
             while($row = $result->fetch_assoc()):
           ?>
             <tr class="text-nowrap">
@@ -177,6 +182,9 @@
               <td class="text-center"> <?= $row["contact_number"]; ?> </td>
               <td class="text-center hidden-column hidden"> <?= $row["email_address"]; ?> </td>
               <td class="text-center"> <?= $row["address"]; ?> </td>
+              <td class="text-center">
+                <a href="admin_appointments_book.php?user_id=<?= $row['id']; ?>" class="btn btn-sm btn-success px-2">Book</a>
+              </td>
               <td class="text-center">
                 <button class="edit-button btn btn-sm btn-warning"
                   data-id="<?= $row["id"]; ?>"
@@ -305,7 +313,7 @@
             
             <div class="row m-2">
             <div class="d-flex justify-content-center mb-2">
-              <input type="submit" name="edit_user" value="Update" class="btn btn-success mt-4">
+              <input type="submit" name="complete_registration" class="btn btn-success mt-4">
             </div>         
           <?php endif; ?>
           </div>

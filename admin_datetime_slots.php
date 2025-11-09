@@ -102,7 +102,6 @@
             <th class="text-center">Start Time</th>
             <th class="text-center">End Time</th>
             <th class="text-center">Slot Count</th>
-            <th class="text-center">Is Booked</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
@@ -120,21 +119,6 @@
               <td class="text-center"> <?= date("g:i A", strtotime($row["start_time"])); ?> </td>
               <td class="text-center"> <?= date("g:i A", strtotime($row["end_time"])); ?> </td>
               <td class="text-center"> <?= $row["slot_count"] ?> </td>
-              <td class="text-center">
-                <span
-                  <?php 
-                    $class = "";
-                    switch ($row["status"]) {
-                      case "Available": $class = "warning text-dark"; break;
-                      case "Booked": $class = "danger"; break;
-                      case "Completed": $class = "success"; break;
-                    } 
-                  ?>
-                  class="badge bg-<?= $class ?>"
-                > 
-                  <?= $row["status"] ?> 
-                </span>
-              </td>
               <td class="text-center">
                 <button class="edit-button btn btn-sm btn-warning"
                   data-id="<?= $row["id"]; ?>"

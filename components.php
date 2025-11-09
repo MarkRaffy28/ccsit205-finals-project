@@ -15,10 +15,15 @@
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
+      <link rel="shortcut icon" href="https://dl.dropbox.com/scl/fi/22oiirmwtu6sa1qcd4e8d/logi.jpg?rlkey=ola10jhyofqvvuf6bpct8nysi&st=tiqqmj0l&dl=0" type="image/jpg">
       <title> <?= ($pageTitle) ? "$pageTitle | DenCare V.A.U.L.T." : "DenCare V.A.U.L.T." ?> </title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-      <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+      
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
       <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
       
       <link rel="stylesheet" href="stylesheet.css">
@@ -161,14 +166,18 @@
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
+      <link rel="shortcut icon" href="https://dl.dropbox.com/scl/fi/22oiirmwtu6sa1qcd4e8d/logi.jpg?rlkey=ola10jhyofqvvuf6bpct8nysi&st=tiqqmj0l&dl=0" type="image/jpg">
       <title> <?= ($pageTitle) ? "Admin $pageTitle | DenCare V.A.U.L.T." : "DenCare V.A.U.L.T." ?> </title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-      <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+      
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
       <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
       
-      <link rel="stylesheet" href="stylesheet.css?v=<?= time(); ?>">
+      <link rel="stylesheet" href="stylesheet.css">
       <script defer src="javascript.js"></script>
     </head>
     <body>
@@ -183,19 +192,20 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-sm-start" id="menu">
                   <li class="nav-item">
                     <a href="admin_dashboard.php" class="nav-link <?= ($pageName == "dashboard") ? "fw-bold" : "" ?> text-white px-0 align-middle">
-                      <span><i class="bi bi-speedometer"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></span>  
+                      <span class="d-flex"><i class="bi bi-speedometer"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></span>  
                   </a>
                   </li>
                   
                   <li>
                     <a href="admin_users.php" class="nav-link <?= ($pageName == "users") ? "fw-bold" : "" ?> text-white px-0 align-middle">
-                      <i class="bi bi-people"></i> <span class="ms-1 d-none d-sm-inline">Users</span>
+                      <span class="d-flex"><i class="bi bi-people"></i> <span class="ms-1 d-none d-sm-inline">Users</span></span>
+                      
                     </a>
                   </li>
                   
                   <li>
-                    <a class="nav-link text-white px-0 align-middle d-flex justify-content-between" data-bs-toggle="collapse" href="#submenuAppointments" role="button" aria-expanded="false" aria-controls="submenuAppointments">
-                      <span><i class="bi bi-calendar"></i> <span class="ms-1 d-none d-sm-inline">Appointments</span></span>
+                    <a class="nav-link <?= ($pageName == "book_-_appointments" || $pageName == "requests_-_appointments") ? "fw-bold" : "" ?> text-white px-0 align-middle d-flex justify-content-between" data-bs-toggle="collapse" href="#submenuAppointments" role="button" aria-expanded="false" aria-controls="submenuAppointments">
+                      <span class="d-flex"><i class="bi bi-calendar"></i> <span class="ms-1 d-none d-sm-inline">Appointments</span></span>
                       <span class="ps-1"><i class="bi bi-chevron-down"></i></span>
                     </a>
                   
@@ -203,7 +213,12 @@
                       <ul class="nav flex-column">
                         <li>
                           <a href="admin_appointments_book.php" class="nav-link <?= ($pageName == "book_-_appointments") ? "fw-bold" : "" ?> text-white px-0">
-                          <span><i class="bi bi-book"></i> <span class="ms-1 d-none d-sm-inline">Book</span></span>
+                            <span class="d-flex"><i class="bi bi-book"></i> <span class="ms-1 d-none d-sm-inline">Book</span></span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="admin_appointments_requests.php" class="nav-link <?= ($pageName == "requests_-_appointments") ? "fw-bold" : "" ?> text-white px-0">
+                            <span class="d-flex"><i class="bi bi-file-text"></i> <span class="ms-1 d-none d-sm-inline">Appointment Requests</span></span>
                           </a>
                         </li>
                       </ul>
@@ -212,19 +227,20 @@
                   
                   <li>
                     <a href="#" class="nav-link text-white px-0 align-middle">
-                      <i class="bi bi-currency-dollar"></i> <span class="ms-1 d-none d-sm-inline">Sales</span>
+                      <span class="d-flex"><i class="bi bi-currency-dollar"></i> <span class="ms-1 d-none d-sm-inline">Sales</span></span>
+                      
                     </a>
                   </li>
                   
                   <li>
                     <a href="#" class="nav-link text-white px-0 align-middle">
-                      <i class="bi bi-hourglass"></i> <span class="ms-1 d-none d-sm-inline">History</span>
+                      <span class="d-flex"><i class="bi bi-hourglass"></i> <span class="ms-1 d-none d-sm-inline">History</span></span>
                     </a>
                   </li>
                   
                   <li>
                     <a href="admin_datetime_slots.php" class="nav-link <?= ($pageName == "date_&_time_slots") ? "fw-bold" : "" ?> text-white px-0 align-middle">
-                      <i class="bi bi-clock"></i> <span class="ms-1 d-none d-sm-inline">Date & Time Slots</span>
+                      <span class="d-flex"><i class="bi bi-clock"></i> <span class="ms-1 d-none d-sm-inline">Date & Time Slots</span></span>
                     </a>
                   </li>
 
