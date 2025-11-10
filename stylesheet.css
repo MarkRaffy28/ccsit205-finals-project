@@ -109,6 +109,14 @@ input:focus:not(#search_input) {
 .border-primary.border-bottom-4 { border-bottom: 3px solid var(--bs-primary) !important; }
 .hidden { display: none; }
 
+.sidebar-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+
 @media(min-width: 800px){
   .px-lg-6 {
     --mx-lg-6-padding-x: 10rem;       

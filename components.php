@@ -178,7 +178,7 @@
       <main>
         <div class="container-fluid">
           <div class="row flex-nowrap">
-            <div class="col-2 col-md-2 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="col-2 col-md-2 col-xl-2 px-sm-2 px-0 bg-dark sidebar-sticky">
               <div class="d-flex flex-column align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                   <span class="fs-5 d-none d-sm-inline">Admin Panel</span>
@@ -230,9 +230,8 @@
                   </li>  
                   
                   <li>
-                    <a href="#" class="nav-link text-white px-0 align-middle">
+                    <a href="admin_sales.php" class="nav-link <?= ($pageName == "sales") ? "fw-bold" : "" ?> text-white px-0 align-middle">
                       <span class="d-flex"><i class="bi bi-currency-dollar"></i> <span class="ms-1 d-none d-sm-inline">Sales</span></span>
-                      
                     </a>
                   </li>
                   

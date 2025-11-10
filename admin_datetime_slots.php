@@ -87,8 +87,14 @@
 
 <section class="m-4">
   <?php showAlert(); ?>
-  <div class="d-flex justify-content-between">
-    <h4 class="w-1oo fw-semibold">Date & Time Slots</h4>
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="w-1oo fw-semibold m-0">Date & Time Slots</h4>
+    <div class="position-relative ms-auto me-3" style="max-width: 200px;">
+      <input type="text" id="search_input" class="form-control ps-5" placeholder="Search...">
+      <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
+        <i class="bi bi-search"></i>
+      </span>
+    </div>
     <button class="btn btn-success px-3" data-bs-toggle="modal" data-bs-target="#add_datetime_slot" type="button">Add</button>
   </div>
 
@@ -323,7 +329,27 @@
       modal.show();
     });
   });
+  
+  function applyFilters() {
+    const query = document.getElementById("search_input").value.toLowerCase();
+    const table = document.querySelector("table tbody");
+    
+    table.querySelectorAll("tr").forEach(row => {
+      const rowText = Array.from(row.cells)
+                            .map(cell => cell.textContent.toLowerCase())
+                            .join(" ");
+      
+      if (query === "" || rowText.includes(query)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  }
+  
+  document.getElementById("search_input").addEventListener("input", applyFilters);
 </script>
+
 <?php
   showAdminFooter();  
 ?>

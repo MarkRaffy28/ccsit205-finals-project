@@ -17,7 +17,7 @@
   
   if ($stmt_chck_user_id->num_rows <= 0) {
     $_SESSION["msg"] = ["danger", "User does not exist"];
-    header ("Location: admin_dashboard.php");
+    header ("Location: admin_users.php");
     exit;
   }
   
@@ -33,7 +33,7 @@
       
       if ($stmt_check_same_serv->num_rows > 0) {
         $_SESSION["msg"] = ["danger", "This user already have an active appointment for this service."];
-        header ("Location: " . $_SERVER["PHP_SELF"]);
+        header ("Location: admin_users.php");
         exit;
       } 
       
@@ -44,7 +44,7 @@
       
       if ($stmt_check_same_slot->num_rows > 0) {
         $_SESSION["msg"] = ["danger", "This user already have an active appointment for this slot."];
-        header ("Location: " . $_SERVER["PHP_SELF"]);
+        header ("Location: admin_users.php");
         exit;
       } 
       
@@ -53,7 +53,7 @@
       
       if (!$stmt_add_booking->execute()) {
         $_SESSION["msg"] = ["danger", "Booking error. Please try again later."];
-        header ("Location: " . $_SERVER["PHP_SELF"]);
+        header ("Location: admin_users.php");
         exit;
       }
       
@@ -62,7 +62,7 @@
       
       if (!$stmt_dec_slot_count->execute()) {
         $_SESSION["msg"] = ["danger", "Booking error. Please try again later."];
-        header ("Location: " . $_SERVER["PHP_SELF"]);
+        header ("Location: admin_users.php");
         exit;
       }
       

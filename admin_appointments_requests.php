@@ -118,7 +118,13 @@
   <?php showAlert(); ?>
   <div class="d-flex align-items-center">
     <h4 class="w-1oo fw-semibold m-0 p-0">Appointment Requests</h4>
-    <div class="d-inline-block bg-secondary ms-auto px-2 py-1 rounded">
+    <div class="position-relative ms-auto me-3" style="max-width: 200px;">
+      <input type="text" id="search_input" class="form-control ps-5" placeholder="Search...">
+      <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
+        <i class="bi bi-search"></i>
+      </span>
+    </div>
+    <div class="d-inline-block bg-secondary px-2 py-1 rounded">
 			<div class="form-check form-switch">
 				<input class="form-check-input" type="checkbox" role="switch" id="appointment_requests_switch">
 				<label class="form-check-label text-white" for="appointment_requests_switch">View Full Table</label>
@@ -202,7 +208,7 @@
               <td class="text-center hidden-column hidden"> <?= $row["email_address"]; ?> </td>
               <td class="text-center hidden-column hidden"> <?= $row["address"]; ?> </td>
               <td class="text-center"> <?= $service_name; ?> </td>
-              <td class="text-center"> <?= date("F j, Y", strtotime($row["birth_date"])) . ": " . date("g:i A", strtotime($row["start_time"])) . " - " . date("g:i A", strtotime($row["end_time"])) ?> </td>
+              <td class="text-center"> <?= date("F j, Y", strtotime($row["date"])) . ": " . date("g:i A", strtotime($row["start_time"])) . " - " . date("g:i A", strtotime($row["end_time"])) ?> </td>
               <td class="text-center">
                 <div class="d-flex gap-2">
                   <button class="approve-button btn btn-sm btn-primary" data-id="<?= $row["appointment_id"] ?>">
@@ -483,6 +489,25 @@
       form.submit();
     });
   });
+  
+  function applyFilters() {
+    const query = document.getElementById("search_input").value.toLowerCase();
+    const table = document.querySelector("table tbody");
+    
+    table.querySelectorAll("tr").forEach(row => {
+      const rowText = Array.from(row.cells)
+                            .map(cell => cell.textContent.toLowerCase())
+                            .join(" ");
+      
+      if (query === "" || rowText.includes(query)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  }
+  
+  document.getElementById("search_input").addEventListener("input", applyFilters);
 </script>
 
 <?php
