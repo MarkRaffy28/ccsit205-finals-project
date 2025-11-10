@@ -39,37 +39,37 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
 
   <script>
-    // const availableDates = [
-    //   "2025-11-08",
-    //   "2025-11-09",
-    //   "2025-11-10",
-    //   "2025-11-12",
-    //   "2025-11-15"
-    // ];
+    const availableDates = [
+      "2025-11-08",
+      "2025-11-09",
+      "2025-11-10",
+      "2025-11-12",
+      "2025-11-15"
+    ];
 
-    //   const dateInput = $("#booking_date");
+    const dateInput = $("#booking_date");
 
-    //   setTimeout(() => {
-    //     if (availableDates.length === 0) {
-    //       dateInput.prop("disabled", true);
-    //       dateInput.attr("placeholder", "No available dates");
-    //       return;
-    //     }
+    setTimeout(() => {
+      if (availableDates.length === 0) {
+        dateInput.prop("disabled", true);
+        dateInput.attr("placeholder", "No available dates");
+        return;
+      }
 
-    //     dateInput.datepicker({
-    //       format: "MM dd, yyyy",
-    //       autoclose: true,
-    //       todayHighlight: true,
-    //       beforeShowDay: function (date) {
-    //         const formatted = date.toISOString().split("T")[0];
-    //         return availableDates.includes(formatted)
-    //           ? { enabled: true}
-    //           : false;
-    //       }
-    //     });
+      dateInput.datepicker({
+        format: "MM dd, yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        beforeShowDay: function (date) {
+          const formatted = date.toISOString().split("T")[0];
+          return availableDates.includes(formatted)
+            ? { enabled: true}
+            : false;
+        }
+      });
 
-    //     dateInput.attr("placeholder", "Select available date");
-    //   }, 800);
+      dateInput.attr("placeholder", "Select available date");
+    }, 800);
   </script>
 </body>
 </html>

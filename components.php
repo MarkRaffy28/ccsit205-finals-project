@@ -5,7 +5,25 @@
     $data = htmlspecialchars($data);
     return $data;
   } 
-
+  
+  //
+  function includeLinkScript() {
+?>
+    <link rel="shortcut icon" href="https://dl.dropbox.com/scl/fi/22oiirmwtu6sa1qcd4e8d/logi.jpg?rlkey=ola10jhyofqvvuf6bpct8nysi&st=tiqqmj0l&dl=0" type="image/jpg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="stylesheet.css">
+    <script defer src="javascript.js"></script>
+<?php
+  }
+  
 //
   function showHeader($pageTitle) {
     $pageName = ($pageTitle == "Home") ? "index" : strtolower(str_replace(" ","_",$pageTitle));
@@ -15,19 +33,8 @@
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
-      <link rel="shortcut icon" href="https://dl.dropbox.com/scl/fi/22oiirmwtu6sa1qcd4e8d/logi.jpg?rlkey=ola10jhyofqvvuf6bpct8nysi&st=tiqqmj0l&dl=0" type="image/jpg">
       <title> <?= ($pageTitle) ? "$pageTitle | DenCare V.A.U.L.T." : "DenCare V.A.U.L.T." ?> </title>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-      
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
-      <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
-      
-      <link rel="stylesheet" href="stylesheet.css">
-      <script defer src="javascript.js"></script>
+      <?php includeLinkScript(); ?>
     </head>
     <body>
       <nav class="navbar navbar-expand-lg sticky-top" data-bs-theme="dark">
@@ -66,8 +73,8 @@
       </nav>
 <?php
   }
-
-
+  
+  
 //
   function showFooter() {
 ?>
@@ -113,8 +120,7 @@
     </html>
 <?php
   }
-
-
+  
   //
   function showAlert() {  
     if(isset($_SESSION["msg"])): 
@@ -150,8 +156,7 @@
       unset($_SESSION["msg"]);
     endif;
   }
-
-
+  
   //
   function showAdminSidebar($pageTitle) {
     if (!isset($_SESSION["username"]) && !($_SESSION["username"]) == "admin") {
@@ -166,19 +171,8 @@
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
-      <link rel="shortcut icon" href="https://dl.dropbox.com/scl/fi/22oiirmwtu6sa1qcd4e8d/logi.jpg?rlkey=ola10jhyofqvvuf6bpct8nysi&st=tiqqmj0l&dl=0" type="image/jpg">
       <title> <?= ($pageTitle) ? "Admin $pageTitle | DenCare V.A.U.L.T." : "DenCare V.A.U.L.T." ?> </title>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-      
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
-      <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
-      
-      <link rel="stylesheet" href="stylesheet.css">
-      <script defer src="javascript.js"></script>
+      <?php includeLinkScript(); ?>
     </head>
     <body>
       <main>
@@ -204,7 +198,7 @@
                   </li>
                   
                   <li>
-                    <a class="nav-link <?= ($pageName == "book_-_appointments" || $pageName == "requests_-_appointments" || $pageName == "upcoming_-_appointments") ? "fw-bold" : "" ?> text-white px-0 align-middle d-flex justify-content-between" data-bs-toggle="collapse" href="#submenuAppointments" role="button" aria-expanded="false" aria-controls="submenuAppointments">
+                    <a class="nav-link <?= ($pageName == "book_-_appointments" || $pageName == "requests_-_appointments" || $pageName == "upcoming_-_appointments" || $pageName == "completed_-_appointments") ? "fw-bold" : "" ?> text-white px-0 align-middle d-flex justify-content-between" data-bs-toggle="collapse" href="#submenuAppointments" role="button" aria-expanded="false" aria-controls="submenuAppointments">
                       <span class="d-flex"><i class="bi bi-calendar"></i> <span class="ms-1 d-none d-sm-inline">Appointments</span></span>
                       <span class="ps-1"><i class="bi bi-chevron-down"></i></span>
                     </a>
@@ -226,6 +220,11 @@
                             <span class="d-flex"><i class="bi bi-bell"></i> <span class="ms-1 d-none d-sm-inline">Upcoming</span></span>
                           </a>
                         </li>
+                        <li>
+                          <a href="admin_appointments_completed.php" class="nav-link <?= ($pageName == "completed_-_appointments") ? "fw-bold" : "" ?> text-white px-0">
+                            <span class="d-flex"><i class="bi bi-check-circle"></i> <span class="ms-1 d-none d-sm-inline">Completed</span></span>
+                          </a>
+                        </li>
                       </ul>
                     </div>
                   </li>  
@@ -238,7 +237,7 @@
                   </li>
                   
                   <li>
-                    <a href="#" class="nav-link text-white px-0 align-middle">
+                    <a href="admin_history.php" class="nav-link <?= ($pageName == "history") ? "fw-bold" : "" ?> </a> text-white px-0 align-middle">
                       <span class="d-flex"><i class="bi bi-hourglass"></i> <span class="ms-1 d-none d-sm-inline">History</span></span>
                     </a>
                   </li>
@@ -260,8 +259,7 @@
             <div class="col-10 col-md-10 col-xl-10">
 <?php
   }
-
-
+  
   //
   function showAdminFooter() {
 ?>

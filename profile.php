@@ -332,7 +332,7 @@
               </div>
               <div class="col-sm form-floating">
                 <input type="tel" class="form-control" id="contact_number" name="contact_number" placeholder="Contact Number (e.g. 09...)" value="<?= htmlspecialchars($row["contact_number"]); ?>" required pattern="\d{11}" minlength="11" maxlength="11">
-                <label for="contact_nunber" class="form-label  ps-4">Contact Number (e.g. 09...)</label>
+                <label for="contact_number" class="form-label  ps-4">Contact Number (e.g. 09...)</label>
               </div>
             </div>
               

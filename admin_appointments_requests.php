@@ -206,7 +206,7 @@
               <td class="text-center">
                 <div class="d-flex gap-2">
                   <button class="approve-button btn btn-sm btn-primary" data-id="<?= $row["appointment_id"] ?>">
-                    <i class="bi bi-check2-circle me-1"></i>Approve
+                    <i class="bi bi-check-circle me-1"></i>Approve
                   </button>
                   <button class="edit-button btn btn-sm btn-warning"
                     data-id="<?= $row["appointment_id"] ?>"

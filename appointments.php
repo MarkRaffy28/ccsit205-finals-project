@@ -421,17 +421,20 @@
                         <div>
                           <?php
                             switch ($request_row["status"]) {
-                              case "Declined": $bg_text_color = "bg-danger text-white"; break;
-                              case "Pending": $bg_text_color = "bg-warning text-dark"; break;
-                              case "Approved": $bg_text_color = "bg-primary text-white"; break;
-                              case "Completed": $bg_text_color = "bg-success text-white"; break;
-                              case "Cancelled": $bg_text_color = "bg-secondary text-white"; break;
+                              case "Declined": $bg_text_color = "bg-danger text-white"; $icon = "ban"; break;
+                              case "Pending": $bg_text_color = "bg-warning text-dark"; $icon = "hourglass-split"; break;
+                              case "Approved": $bg_text_color = "bg-primary text-white"; $icon = "check-circle"; break;
+                              case "Completed": $bg_text_color = "bg-success text-white"; $icon = "check-square"; break;
+                              case "Cancelled": $bg_text_color = "bg-secondary text-white"; $icon = "x-circle"; break;
                             }
                           ?>
-                          <span class="badge <?= $bg_text_color ?> px-3 py-2"> <?= $request_row["status"] ?> </span>
+                          <span class="badge <?= $bg_text_color ?> align-middle px-3 py-2">
+                            <i class="bi bi-<?= $icon; ?>"></i> 
+                            <?= $request_row["status"] ?> 
+                          </span>
                         </div>
                         <div>
-                          <span class="badge bg-purple text-white px-3 py-2"> <?= "$" . number_format($request_row["payment_amount"] ?? "0", thousands_separator: ", ") ?> </span>
+                          <span class="badge bg-purple text-white px-3 py-2"> <?= "₱" . number_format($request_row["payment_amount"] ?? "0", thousands_separator: ", ") ?> </span>
                         </div>
                       </div>
                     </div>
