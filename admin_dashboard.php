@@ -61,7 +61,7 @@
       
       <div class="col-12 col-md-6 col-lg-3 px-4">
         <div class="card shadow-sm p-3 h-100 d-flex flex-column justify-content-center" onclick="window.location.href='admin_sales.php';">
-          <h1 class="fw-bold text-center"> ₱<?= number_format($sales, thousands_separator: ",") ?> </h1>
+          <h1 class="fw-bold text-center"> ₱<?= number_format($sales ?? 0, thousands_separator: ",") ?> </h1>
           <h5 class="cb-gradient fw-semibold text-center">Generated Sales</h5>
           <select name="filter_date" id="filter_date" class="form-select w-auto" onchange="this.form.submit()" onclick="event.stopPropagation()">
             <option value="all">All Time</option>

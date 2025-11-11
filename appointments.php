@@ -434,7 +434,7 @@
                           </span>
                         </div>
                         <div>
-                          <span class="badge bg-purple text-white px-3 py-2"> <?= "₱" . number_format($request_row["payment_amount"] ?? "0", thousands_separator: ", ") ?> </span>
+                          <span class="badge bg-purple text-white px-3 py-2"> <?= "₱" . number_format($request_row["payment_amount"] ?? 0, thousands_separator: ", ") ?> </span>
                         </div>
                       </div>
                     </div>

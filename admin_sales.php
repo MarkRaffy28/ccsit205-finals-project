@@ -156,7 +156,7 @@
         </tbody>
         <tfoot class="position-sticky bottom-0 bg-light tfoot-border-top">
           <tr>
-            <td colspan="14" class="text-end fw-bold"> Total Sales: <span class="text-success ms-2"> ₱<?= number_format($total_sales, 2, '.', ','); ?> </span> </td>
+            <td colspan="14" class="text-end fw-bold"> Total Sales: <span class="text-success ms-2"> ₱<?= (int) number_format($total_sales, 2, '.', ','); ?> </span> </td>
           </tr>
         </tfoot>
       </table>

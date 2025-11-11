@@ -151,7 +151,7 @@
               <td class="text-center"> <?= $service_name; ?> </td>
               <td class="text-center"> <?= date("F j, Y", strtotime($row["date"])) . ": " . date("g:i A", strtotime($row["start_time"])) . " - " . date("g:i A", strtotime($row["end_time"])) ?> </td>
               <td class="text-center"> <?= $row["notes"]; ?> </td>
-              <td class="text-center"> ₱<?= number_format($row["payment_amount"], thousands_separator: ", "); ?> </td>
+              <td class="text-center"> ₱<?= number_format($row["payment_amount"] ?? 0, thousands_separator: ", "); ?> </td>
               <td class="text-center">
                 <div class="d-flex gap-2">
                   <button class="edit-button btn btn-sm btn-warning" 
