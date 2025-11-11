@@ -21,7 +21,7 @@
         <option value="year">This Year</option>
       </select>
     </div>
-    <div class="position-relative" style="max-width: 200px;">
+    <div class="position-relative search-container">
       <input type="text" id="search_input" class="form-control ps-5" placeholder="Search...">
       <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
         <i class="bi bi-search"></i>
@@ -59,9 +59,9 @@
           <?php
             $json_data = file_get_contents("services.json");
             $services = json_decode($json_data, true);
-
+            
             $filter = $_GET['filter_date'] ?? 'all';
-
+            
             $sql = "SELECT
                 a.id AS appointment_id,
                 u.id AS user_id,
@@ -88,7 +88,7 @@
               JOIN users u ON a.patient_id = u.id
               JOIN date_time_slots d ON a.slot_id = d.id
               WHERE a.status = 'Completed'";
-
+            
             switch($filter) {
               case 'today': $sql .= " AND DATE(d.date) = CURDATE()"; break;
               case 'week': $sql .= " AND YEARWEEK(d.date, 1) = YEARWEEK(CURDATE(), 1)"; break;
@@ -96,13 +96,13 @@
               case 'year': $sql .= " AND YEAR(d.date) = YEAR(CURDATE())"; break;
               case 'all': break;
             }
-
+            
             $sql .= " ORDER BY d.date DESC, d.start_time ASC";
-
+            
             $stmt_fetch_datetime = $conn->prepare($sql);
             $stmt_fetch_datetime->execute();
             $result = $stmt_fetch_datetime->get_result();
-
+            
             
             if ($result->num_rows === 0) {
               echo '<tr><td colspan="13" class="text-center text-muted fw-semibold mt-4">No appointment requests available.</td></tr>';
@@ -154,7 +154,7 @@
             $total_sales = $sum_result->fetch_assoc()['total_sales'] ?? 0;
           ?>
         </tbody>
-        <tfoot class="position-sticky bottom-0 bg-light" style="border-top: 2px solid black">
+        <tfoot class="position-sticky bottom-0 bg-light tfoot-border-top">
           <tr>
             <td colspan="14" class="text-end fw-bold"> Total Sales: <span class="text-success ms-2"> ₱<?= number_format($total_sales, 2, '.', ','); ?> </span> </td>
           </tr>

@@ -1,9 +1,9 @@
 <?php
   session_start();
-
+  
   include "config.php";
   include "components.php";
-
+  
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["add_datetime_slot"])) {
       $date = test_input($_POST["date"]);
@@ -32,7 +32,7 @@
       header ("Location: " . $_SERVER["PHP_SELF"]);
       exit;
     }
-
+    
     if (isset($_POST["edit_datetime_slot"])) {
       $edit_id = test_input($_POST["edit_id"]);
       $edit_date = test_input($_POST["edit_date"]);
@@ -81,7 +81,7 @@
       exit;
     }
   }
-
+  
   showAdminSidebar("Date & Time Slots")
 ?>
 
@@ -89,7 +89,7 @@
   <?php showAlert(); ?>
   <div class="d-flex justify-content-between align-items-center">
     <h4 class="w-1oo fw-semibold m-0">Date & Time Slots</h4>
-    <div class="position-relative ms-auto me-3" style="max-width: 200px;">
+    <div class="position-relative ms-auto me-3 search-container">
       <input type="text" id="search_input" class="form-control ps-5" placeholder="Search...">
       <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
         <i class="bi bi-search"></i>
@@ -97,7 +97,7 @@
     </div>
     <button class="btn btn-success px-3" data-bs-toggle="modal" data-bs-target="#add_datetime_slot" type="button">Add</button>
   </div>
-
+  
   <div class="container-fluid py-4">
     <div class="table-responsive">
       <table class="table table-hover align-middle">
@@ -116,7 +116,7 @@
             $stmt_fetch_datetime = $conn->prepare("SELECT * FROM date_time_slots ORDER BY date DESC");
             $stmt_fetch_datetime->execute();
             $result = $stmt_fetch_datetime->get_result();
-
+            
             while($row = $result->fetch_assoc()):
           ?>
             <tr class="text-nowrap">
@@ -146,6 +146,7 @@
     </div>
   </div>
 </section>
+
 
 <div class="modal fade" id="add_datetime_slot" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-4">
@@ -274,7 +275,6 @@
   </div>
 </div>
 
-
 <div class="modal fade p-4" id="delete_datetime_slot" tabindex="-1">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
     <div class="modal-content rounded-4 shadow">
@@ -320,7 +320,7 @@
       modal.show();
     });
   });
-
+  
   document.querySelectorAll(".delete-button").forEach(btn => {
     btn.addEventListener("click", ()=> {
       document.getElementById("delete_id").value = btn.dataset.id;

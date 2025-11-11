@@ -3,10 +3,10 @@
   
   if(!isset($_SESSION["id"]) || !isset($_SESSION["username"])) {
     header ("Location: index.php");
-    exit();
+    exit;
   } elseif($_SESSION["username"] == "admin") {
     header ("Location: admin_dashboard.php");
-    exit();
+    exit;
   }
   
   include "config.php";
@@ -101,7 +101,7 @@
         $stmt_incr_slot_count = $conn->prepare("UPDATE date_time_slots SET slot_count = slot_count + 1 WHERE id = ?");
         $stmt_incr_slot_count->bind_param("i", $current_slot_id);
         $stmt_incr_slot_count->execute();
-
+        
         $stmt_dec_slot_count = $conn->prepare("UPDATE date_time_slots SET slot_count = slot_count - 1 WHERE id = ? AND slot_count > 0");
         $stmt_dec_slot_count->bind_param("i", $edit_appt_slot_id);
         $stmt_dec_slot_count->execute();
@@ -223,7 +223,7 @@
           <?php
             $json_data = file_get_contents("services.json");
             $services = json_decode($json_data, true);
-
+            
             $stmt_show_appt_requests = $conn->prepare("SELECT
                 a.id AS appointment_id,
                 a.service_id,
@@ -297,7 +297,7 @@
         </div>
       </div>
     </div>
-
+    
     <div class="tab-pane show fade" id="upcoming" role="tabpanel">
       <div class="m-3">
         <h5 class="fw-semibold text-center">Upcoming Appointment(s)</h5>
@@ -305,7 +305,7 @@
           <?php
             $json_data = file_get_contents("services.json");
             $services = json_decode($json_data, true);
-
+            
             $stmt_show_upcoming_appts = $conn->prepare("SELECT
                 a.id AS appointment_id,
                 a.service_id,
@@ -364,7 +364,7 @@
         </div>
       </div>
     </div>
-
+    
     <div class="tab-pane show fade" id="history" role="tabpanel">
       <div class="m-3">
         <h5 class="fw-semibold text-center">Appointments History</h5>
@@ -372,7 +372,7 @@
           <?php
             $json_data = file_get_contents("services.json");
             $services = json_decode($json_data, true);
-
+            
             $stmt_show_appt_history = $conn->prepare("SELECT
                 a.id AS appointment_id,
                 a.service_id,
@@ -474,7 +474,7 @@
                 <label for="edit_appt_service" class="form-label">Select service</label>
               </div>
             </div>
-
+            
             <div class="row mb-2 gx-3 gy-2">
               <div class="col-sm form-floating">
                 <input type="text" class="form-control" id="edit_appt_date" required>
@@ -487,7 +487,7 @@
                 <label for="edit_appt_time" class="form-label">Select preferred time</label>
               </div>    
             </div>
-
+            
             <div class="mt-4 d-flex justify-content-center">
               <button type="button" class="btn btn-md btn-danger rounded-3 px-3 me-3" data-bs-dismiss="modal">Cancel</button>
               <input type="submit" name="edit_appointment_request" value="Update" class="btn btn-success">
@@ -589,7 +589,7 @@
       });
       timeSelect.prop("disabled", availableTimes.length === 0);
     }
-
+    
     function formatTime(timeStr) {
       const [hour, minute] = timeStr.split(':');
       let h = parseInt(hour);
@@ -656,7 +656,7 @@
             });
           })
           .catch(err => console.error("Error loading dates:", err));
-
+        now
         const modal = new bootstrap.Modal(document.getElementById("edit_appointment_request"));
         modal.show();
       });

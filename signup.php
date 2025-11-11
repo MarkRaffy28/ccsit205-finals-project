@@ -1,6 +1,5 @@
 <?php
   session_start();
-  ob_start();
   
   include "config.php";
   include "components.php";
@@ -53,7 +52,7 @@
           $_SESSION["msg"] = ["success", "Registration Successfull."];
           
           header ("Location: login.php");
-          exit();
+          exit;
         } else {
           $_SESSION["msg"] = ["danger", "Registration Failed."];
         }
@@ -63,8 +62,6 @@
       }
     }
   }
-  ob_end_flush();
-  $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,11 +114,11 @@
                   </div>
                 </div>
                 <div class="row m-2">
-                <span class="text-end fs-7">Already Have an Account? <a href="login.php" class="link-primary d-inline-block">Log In</a></span>
-                <div class="d-flex justify-content-center mb-2">
-                  <input type="submit" name="check_username" value="Next" class="btn btn-success mt-4">
-                </div>                
-                
+                  <span class="text-end fs-7">Already Have an Account? <a href="login.php" class="link-primary d-inline-block">Log In</a></span>
+                  <div class="d-flex justify-content-center mb-2">
+                    <input type="submit" name="check_username" value="Next" class="btn btn-success mt-4">
+                  </div>                
+                </div>
               <?php else: ?>
                 <div class="row mb-2 gx-3 gy-2">
                   <div class="col-sm form-floating">
@@ -133,7 +130,6 @@
                     <label for="middle_name" class="form-label ps-4">Middle Name</label>
                   </div>
                 </div>
-                
                 <div class="row mb-2 gx-3 gy-2">
                   <div class="col-sm form-floating">
                     <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
@@ -144,7 +140,6 @@
                     <label for="extension_name" class="form-label ps-4">Extension Name</label>
                   </div>
                 </div>
-                
                 <div class="row mb-2 gx-3 gy-2">
                   <div class="col-sm form-floating">
                     <input type="number" class="form-control" id="age" name="age" placeholder="Age" required>
@@ -160,7 +155,6 @@
                     <label for="gender" class="form-label ps-4">Select Gender</label>
                   </div>
                 </div>
-                
                 <div class="row mb-2 gx-3 gy-2">
                   <div class="col-sm form-floating">
                     <input type="date" class="form-control" id="birth_date" name="birth_date" placeholder="Birth Date" required>
@@ -171,7 +165,6 @@
                     <label for="contact_nunber" class="form-label  ps-4">Contact Number (e.g. 09...)</label>
                   </div>
                 </div>
-                
                 <div class="row mb-2 gx-3 gy-2">
                   <div class="col-sm form-floating">
                     <input type="email" class="form-control" id="email_address" name="email_address" placeholder="E-mail Address" required>
@@ -182,15 +175,14 @@
                     <label for="address" class="form-label ps-4">Address</label>
                   </div>
                 </div>
-                
                 <div class="row m-2">
-                <span class="text-end fs-7">Already Have an Account? <a href="login.php" class="link-primary d-inline-block">Log In</a></span>
-                <div class="d-flex justify-content-center mb-2">
-                  <input type="submit" name="return" value="Return" class="btn btn-danger mt-4 me-3" formnovalidate>
-                  <input type="submit" name="complete_registration" value="Complete Registration" class="btn btn-success mt-4">
-                </div>         
+                  <span class="text-end fs-7">Already Have an Account? <a href="login.php" class="link-primary d-inline-block">Log In</a></span>
+                  <div class="d-flex justify-content-center mb-2">
+                    <input type="submit" name="return" value="Return" class="btn btn-danger mt-4 me-3" formnovalidate>
+                    <input type="submit" name="complete_registration" value="Complete Registration" class="btn btn-success mt-4">
+                  </div>   
+                </div>      
               <?php endif; ?>
-              </div>
             </form>
           </div>
         </div>

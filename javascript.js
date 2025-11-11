@@ -4,11 +4,11 @@ forms.forEach(form => {
     if (event.submitter && event.submitter.hasAttribute("formnovalidate")) {
       return;
     }
-
+    
     if (!form.checkValidity()) {
       event.preventDefault();
     }
-  
+    
     form.classList.add("was-validated");
   });
 });

@@ -5,7 +5,7 @@
   
   showHeader("Home");
 ?>
-  
+
 <main class="py-4">
   <?= showAlert(); ?>
   <section class="index-overview mx-3 mt-2 text-center">
@@ -84,14 +84,14 @@
   </section>
   
   <section class="our-clinic mx-2 mt-5 row">
-    <div class="col-md-4">
+    <div class="col-md-4 hover-scale-up">
       <img class="rounded-3" height="255px" src="https://dl.dropbox.com/scl/fi/dbxdtpjwpr0v5aj3o1z5f/1761837597323.jpg?rlkey=76pu8ql6xj1wtvtal2kdjmyy0&st=emaxa2of&dl=0" alt="Procedure">
       <h2 class="fw-semibold my-4">Creating <span class="cb-gradient">Smiles.</span> Changing Lives</h2>
       <p>For us, creating smiles is more than crafting something beautiful. It’s about restoring function and oral health, enabling our patients to eat, speak, and live their lives with confidence. We believe a truly great smile transforms not only appearances, but also quality of life.</p>
       <p>At Dela Vega Dental Clinic, your trust is our greatest achievement, and your smile is our greatest reward.</p>
     </div>  
     
-    <div class="clinic-information px-4 mt-5 mt-lg-0 col-md-4">
+    <div class="clinic-information px-4 mt-5 mt-lg-0 col-md-4 hover-scale-up">
       <img class="rounded-3" src="https://dl.dropbox.com/scl/fi/6ykhpslsnwf5bdxy1353y/office.jpg?rlkey=3kuv5mtvlugmy92yf0jvn3ur6&st=dgmepuz7&dl=0" alt="Dental Office">
       <div class="clinic-card rounded-4 px-4 py-3">
         <h5>Dela Vega Dental Clinic</h5>
@@ -112,7 +112,7 @@
       </div>
     </div>      
       
-    <div class="col-md-4">
+    <div class="col-md-4 hover-scale-up">
       <div class="call-to-action px-3 py-5 rounded-3 d-flex flex-column align-items-center">
         <h1 class="fw-semibold text-white text-center">Your healthier and brighter smile starts here.</h1>
         <?php if(isset($_SESSION["username"])): ?>

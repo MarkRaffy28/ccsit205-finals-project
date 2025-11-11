@@ -79,7 +79,7 @@
   <?php showAlert(); ?>
   <div class="d-flex align-items-center">
     <h4 class="w-1oo fw-semibold m-0 p-0">Upcoming Appointments</h4>
-    <div class="position-relative ms-auto me-3" style="max-width: 200px;">
+    <div class="position-relative ms-auto me-3 search-container">
       <input type="text" id="search_input" class="form-control ps-5" placeholder="Search...">
       <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
         <i class="bi bi-search"></i>
@@ -116,7 +116,7 @@
           <?php
             $json_data = file_get_contents("services.json");
             $services = json_decode($json_data, true);
-
+            
             $stmt_fetch_datetime = $conn->prepare("SELECT
                 a.id AS appointment_id,
                 u.id AS user_id,
@@ -216,7 +216,7 @@
               <label for="payment_amount" class="form-label">Payment Amount (Whole Number)</label>
             </div>    
           </div>
-
+          
           <div class="mt-4 d-flex justify-content-center">
             <button type="button" class="btn btn-md btn-danger rounded-3 px-3 me-3" data-bs-dismiss="modal">Cancel</button>
             <input type="submit" name="complete_appointment" value="Complete" class="btn btn-success">
@@ -289,7 +289,7 @@
       modal.show();
     });
   });
-
+  
   document.querySelectorAll(".decline-button").forEach(btn => {
     btn.addEventListener("click", ()=> {
       document.getElementById("decline_appt_id").value = btn.dataset.id;

@@ -120,7 +120,7 @@
 
 <script>
   document.getElementById('booking_time').disabled = true;
-    
+  
   $(document).ready(function() {
     const now = new Date();
     const utc8 = new Date(now.getTime() + (8 * 60 - now.getTimezoneOffset()) * 60000);
@@ -175,7 +175,7 @@
         });
       })
     .catch(err => console.error("Error loading dates:", err));
-      
+    
     function updateTimes(selectedDate, availableTimes) {
       timeSelect.html('<option value="" selected disabled>-- Select a time --</option>');
       availableTimes.forEach(slot => {
@@ -186,7 +186,7 @@
       });
       timeSelect.prop("disabled", availableTimes.length === 0);
     }
-
+    
     function formatTime(timeStr) {
       const [hour, minute] = timeStr.split(':');
       let h = parseInt(hour);

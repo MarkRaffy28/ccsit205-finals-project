@@ -1,13 +1,12 @@
 <?php
   session_start();
-  ob_start();
   
   if(!isset($_SESSION["id"]) || !isset($_SESSION["username"])) {
     header ("Location: index.php");
-    exit();
+    exit;
   } elseif($_SESSION["username"] == "admin") {
     header ("Location: admin_dashboard.php");
-    exit();
+    exit;
   }
   
   include "config.php";
@@ -76,7 +75,6 @@
     }
         
     if (isset($_POST["edit_profile"])) {
-
       $first_name = test_input($_POST["first_name"]);
       $middle_name = test_input($_POST["middle_name"]);
       $last_name = test_input($_POST["last_name"]);
@@ -125,9 +123,6 @@
     }
   }
   
-  ob_end_flush();
-  $conn->close();
-
   showHeader("Profile")
 ?>
 
@@ -214,7 +209,6 @@
   </section>
   
   
-  
   <div class="modal fade" id="change_username" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-4">
       <div class="modal-content">
@@ -241,7 +235,6 @@
       </div>
     </div>
   </div>
-  
   
   <div class="modal fade" id="change_password" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-4">
@@ -277,7 +270,6 @@
       </div>
     </div>
   </div>
-  
   
   <div class="modal fade" id="edit_profile" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-4">
@@ -358,7 +350,6 @@
       </div>
     </div>
   </div>
-  
   
   <div class="modal fade p-4" id="delete_account" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">

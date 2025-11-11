@@ -94,6 +94,7 @@ input:focus:not(#search_input) {
 
 .bg-blue { background-color: #027BBF; }
 .bg-cyan { background-color: #2BBFC4; }
+.bg-gradient { background-image: linear-gradient(90deg, #169CE5, #027BBF) !important; }
 .bg-purple { background-color: #6f42c1; }
 .border-cyan { border-color: #2BBFC4; }
 .btn-teal { background-color: #20c997 ;}
@@ -101,13 +102,19 @@ input:focus:not(#search_input) {
 .cb-gradient {
   background: linear-gradient(90deg, #2BBFC4, #027BBF);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; 
   background-clip: text;
   color: transparent;
 }
 
+.btn.bg-cyan:hover,
+.btn.bg-cyan:active {
+  background-color: rgb(34, 153, 157) !important;
+}
 .border-primary.border-bottom-4 { border-bottom: 3px solid var(--bs-primary) !important; }
 .hidden { display: none; }
+.hover-scale-up {   transition: all 0.3s ease-in-out !important; }
+.hover-scale-up:hover { transform: scale(1.05) !important; }
 
 .sidebar-sticky {
   position: sticky;
@@ -137,6 +144,10 @@ input:focus:not(#search_input) {
   background-color: #027BBF;
 }
 
+.services:hover .service:not(:hover) {
+  transform: scale(0.95);
+}
+
 @media(min-width: 800px){
   .services {
     --services-padding-x: 10rem;
@@ -152,6 +163,10 @@ input:focus:not(#search_input) {
   flex-direction: column;
   justify-content: flex-end;
   transition: all 0.3s ease-in-out;
+}
+
+.service:hover {
+  transform: scale(1.05);
 }
 
 .service-icon {
@@ -364,4 +379,37 @@ table {
 
 .form-control[disabled] {
   background-color: #e9ecef !important;
+}
+
+/* ADMIN */
+@media(min-width: 800px) {
+  .admin-dashboard {
+    margin-top: 17.5vh !important;
+  }
+}
+
+.admin-logo {
+  width: 100px;
+  border-radius: 50%;
+}
+
+.admin-dashboard-cards:hover div:not(:hover) {
+  transform: scale(0.95);
+}
+
+.admin-dashboard-cards div {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.admin-dashboard-cards div:hover {
+  transform: scale(1.05);
+}
+
+.search-container {
+  max-width: 200px;
+}
+
+.tfoot-border-top {
+  border-top: 2px solid black;
 }

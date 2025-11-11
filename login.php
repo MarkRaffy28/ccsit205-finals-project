@@ -1,6 +1,5 @@
 <?php
   session_start();
-  ob_start();
   
   include "config.php";
   include "components.php";  
@@ -20,17 +19,17 @@
       $_SESSION["username"] = "admin";
       
       header("Location: admin_dashboard.php");
-      exit();
+      exit;
     }
-      
+    
     if ($stmt->fetch()) {
       if (password_verify($password, $hashed_password)) {
-        $_SESSION["msg"] = ["success", "Login Successfull."];
+        $_SESSION["msg"] = ["success", "Login Successfully."];
         $_SESSION["id"] = $id;
         $_SESSION["username"] = $username;
         
         header("Location: index.php");
-        exit();
+        exit;
       } else {
         $_SESSION["msg"] = ["danger", "Invalid username or password."];
       }
@@ -39,8 +38,6 @@
     }
     $stmt->close();
   }
-  $conn->close();  
-  ob_end_flush();
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -54,10 +54,10 @@
               <li class="nav-item">
                 <a class="nav-link <?= ($pageName == "services") ? "active" : "" ?> fw-bold" href="services.php">Services</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item <?= (!isset($_SESSION["id"])) ? "d-none" : "" ?>">
                 <a class="nav-link <?= ($pageName == "appointments") ? "active" : "" ?> fw-bold" href="appointments.php">Appointments</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item <?= (!isset($_SESSION["id"])) ? "d-none" : "" ?>">
                 <a class="nav-link <?= ($pageName == "profile") ? "active" : "" ?> fw-bold" href="profile.php">Profile</a>
               </li>
             </ul>
@@ -73,7 +73,6 @@
       </nav>
 <?php
   }
-  
   
 //
   function showFooter() {
@@ -161,7 +160,7 @@
   function showAdminSidebar($pageTitle) {
     if (!isset($_SESSION["username"]) && !($_SESSION["username"]) == "admin") {
       header ("Location: index.php");
-      exit();
+      exit;
     }
 
     $pageName = ($pageTitle == "Home") ? "index" : strtolower(str_replace(" ","_",$pageTitle));
@@ -246,7 +245,7 @@
                       <span class="d-flex"><i class="bi bi-clock"></i> <span class="ms-1 d-none d-sm-inline">Date & Time Slots</span></span>
                     </a>
                   </li>
-
+                  
                   <li>
                     <a href="logout.php" class="nav-link text-danger px-0 align-middle">
                       <i class="bi bi-box-arrow-right"></i> <span class="ms-1 d-none d-sm-inline">Logout</span>

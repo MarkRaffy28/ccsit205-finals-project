@@ -1,9 +1,9 @@
 <?php
   session_start();
-
+  
   include "config.php";
   include "components.php";
-
+  
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["check_username"])) {
       $username = test_input($_POST["username"]);
@@ -126,7 +126,7 @@
       exit;
     }
   }
-
+  
   showAdminSidebar("Users")
 ?>
 
@@ -142,7 +142,7 @@
 		</div>
     <button class="btn btn-success ms-3 px-3" data-bs-toggle="modal" data-bs-target="#add_user" type="button">Add</button>
   </div>
-
+  
   <div class="container-fluid py-4">
     <div class="table-responsive">
       <table class="table table-hover align-middle">
@@ -213,6 +213,7 @@
     </div>
   </div>
 </section>
+
 
 <div class="modal fade" id="add_user" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-4">
@@ -465,7 +466,7 @@
       modal.show();
     });
   });
-
+  
   document.querySelectorAll(".delete-button").forEach(btn => {
     btn.addEventListener("click", ()=> {
       document.getElementById("delete_id").value = btn.dataset.id;

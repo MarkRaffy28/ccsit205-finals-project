@@ -22,7 +22,7 @@
         <option value="Completed">Completed</option>
       </select>
     </div>
-    <div class="position-relative" style="max-width: 200px;">
+    <div class="position-relative search-container">
       <input type="text" id="search_input" class="form-control ps-5" placeholder="Search...">
       <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
         <i class="bi bi-search"></i>
@@ -61,7 +61,7 @@
           <?php
             $json_data = file_get_contents("services.json");
             $services = json_decode($json_data, true);
-
+            
             $stmt_fetch_datetime = $conn->prepare("SELECT
                 a.id AS appointment_id,
                 u.id AS user_id,

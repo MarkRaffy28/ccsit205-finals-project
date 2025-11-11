@@ -60,7 +60,7 @@
       $stmt_incr_slot_count = $conn->prepare("UPDATE date_time_slots SET slot_count = slot_count + 1 WHERE id = ?");
       $stmt_incr_slot_count->bind_param("i", $current_slot_id);
       $stmt_incr_slot_count->execute();
-
+      
       $stmt_dec_slot_count = $conn->prepare("UPDATE date_time_slots SET slot_count = slot_count - 1 WHERE id = ? AND slot_count > 0");
       $stmt_dec_slot_count->bind_param("i", $edit_appt_slot_id);
       $stmt_dec_slot_count->execute();
@@ -118,7 +118,7 @@
   <?php showAlert(); ?>
   <div class="d-flex align-items-center">
     <h4 class="w-1oo fw-semibold m-0 p-0">Appointment Requests</h4>
-    <div class="position-relative ms-auto me-3" style="max-width: 200px;">
+    <div class="position-relative ms-auto me-3 search-container">
       <input type="text" id="search_input" class="form-control ps-5" placeholder="Search...">
       <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
         <i class="bi bi-search"></i>
@@ -155,7 +155,7 @@
           <?php
             $json_data = file_get_contents("services.json");
             $services = json_decode($json_data, true);
-
+            
             $stmt_fetch_datetime = $conn->prepare("SELECT
                 a.id AS appointment_id,
                 u.id AS user_id,
@@ -267,7 +267,7 @@
               <label for="edit_appt_service" class="form-label">Select service</label>
             </div>
           </div>
-
+          
           <div class="row mb-2 gx-3 gy-2">
             <input type="hidden" id="edit_user_id" name="edit_user_id">
             <div class="col-sm form-floating">
@@ -281,7 +281,7 @@
               <label for="edit_appt_time" class="form-label">Select preferred time</label>
             </div>    
           </div>
-
+          
           <div class="mt-4 d-flex justify-content-center">
             <button type="button" class="btn btn-md btn-danger rounded-3 px-3 me-3" data-bs-dismiss="modal">Cancel</button>
             <input type="submit" name="edit_appointment_request" value="Update" class="btn btn-success">
@@ -389,7 +389,7 @@
       });
       timeSelect.prop("disabled", availableTimes.length === 0);
     }
-
+    
     function formatTime(timeStr) {
       const [hour, minute] = timeStr.split(':');
       let h = parseInt(hour);
