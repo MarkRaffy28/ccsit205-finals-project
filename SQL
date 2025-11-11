@@ -1,3 +1,6 @@
+CREATE DATABASE db_dental;
+USE db_dental;
+
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) UNIQUE NOT NULL,
@@ -13,4 +16,27 @@ CREATE TABLE users (
   email_address VARCHAR(100),
   address VARCHAR(255),
   date_registered TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE date_time_slots (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  date DATE NOT NULL,
+  start_time TIME NOT NULL,
+  end_time TIME NOT NULL,
+  status ENUM('Available','Booked','Completed') DEFAULT 'Available',
+  slot_count INT DEFAULT 1,
+  UNIQUE KEY unique_slot (date, start_time, end_time)
+);
+
+CREATE TABLE appointments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  patient_id INT NOT NULL,
+  slot_id INT NOT NULL,
+  service_id INT NOT NULL,
+  booking_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  status ENUM('Declined', 'Pending', 'Approved', 'Cancelled','Completed') DEFAULT 'Pending',
+  notes TEXT,
+  payment_amount INT,
+  FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (slot_id) REFERENCES date_time_slots(id) ON DELETE CASCADE
 );

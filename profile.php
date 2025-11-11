@@ -1,10 +1,12 @@
 <?php
   session_start();
-  ob_start();
   
   if(!isset($_SESSION["id"]) || !isset($_SESSION["username"])) {
     header ("Location: index.php");
-    exit();
+    exit;
+  } elseif($_SESSION["username"] == "admin") {
+    header ("Location: admin_dashboard.php");
+    exit;
   }
   
   include "config.php";
@@ -19,122 +21,109 @@
   $row = $result->fetch_assoc();
   
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    switch($_POST["action"]) {
-      case "change_username":
-        $new_username = test_input($_POST["new_username"]);
-        
-        if ($new_username == $row["username"]) {
-          $_SESSION["msg"] = ["danger", "You are already using this username."];
-          break;
-        }
-        
-        $stmt_chck_usrnm = $conn->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt_chck_usrnm->bind_param("s", $new_username);
-        $stmt_chck_usrnm->execute();
-        $result_chck_usrnm = $stmt_chck_usrnm->get_result();
-        
-        if ($result_chck_usrnm->num_rows > 0 || $new_username == "admin") {
-          $_SESSION["msg"] = ["danger", "Username already exists."];
-          break;
-        }
-          
-        $stmt_updt_usrnm = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");
-        $stmt_updt_usrnm->bind_param("si", $new_username, $user_id);
-          
-        if (!$stmt_updt_usrnm->execute()) {
-          $_SESSION["msg"] = ["danger", "Update error. Please try again later."];
-          break;
-        }
-        $_SESSION["msg"] = ["success", "Username updated successfully"];
-        
-        header ("Location: profile.php");
-        exit();     
+    if (isset($_POST["change_username"])) {
+      $new_username = test_input($_POST["new_username"]);
       
+      if ($new_username == $row["username"]) {
+        $_SESSION["msg"] = ["danger", "You are already using this username."];
+      }
       
-      case "change_password":
-        $old_password = test_input($_POST["old_password"]);
-        $new_password = test_input($_POST["new_password"]);
-        
-        if (!password_verify($old_password, $row["password"])) {
-          $_SESSION["msg"] = ["danger", "Incorrect password."];
-          break;
-        }
-        
-        if (password_verify($new_password, $row["password"])) {
-          $_SESSION["msg"] = ["danger", "You are already using this password."];
-          break;
-        }
-        
-        $stmt_updt_psswrd = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
-        $stmt_updt_psswrd->bind_param("si", password_hash($new_password, PASSWORD_DEFAULT), $user_id);
-        
-        if (!$stmt_updt_psswrd->execute()) {
-          $_SESSION["msg"] = ["danger", "Update error. Please try again later."];
-          break;
-        }
-        $_SESSION["msg"] = ["success", "Password updated successfully"];
-        
-        header ("Location: profile.php");
-        exit();  
-        
-        
-      case "edit_information":
-        $first_name = test_input($_POST["first_name"]);
-        $middle_name = test_input($_POST["middle_name"]);
-        $last_name = test_input($_POST["last_name"]);
-        $extension_name = test_input($_POST["extension_name"]);
-        $age = test_input($_POST["age"]);
-        $gender = test_input($_POST["gender"]);
-        $birth_date = test_input($_POST["birth_date"]);
-        $contact_number = test_input($_POST["contact_number"]);
-        $email_address = test_input($_POST["email_address"]);
-        $address = test_input($_POST["address"]);
-        
-        $stmt_updt_info = $conn->prepare("UPDATE users SET
-            first_name = ?, 
-            middle_name = ?, 
-            last_name =  ?, 
-            extension_name = ?, 
-            age = ?, 
-            gender = ?, 
-            birth_date = ?, 
-            contact_number = ?, 
-            email_address = ?, 
-            address = ?
-          WHERE id = ?");
-        $stmt_updt_info->bind_param("ssssisssssi", $first_name, $middle_name, $last_name, $extension_name, $age, $gender, $birth_date, $contact_number, $email_address, $address, $user_id);
-        
-        if (!$stmt_updt_info->execute()) {
-          $_SESSION["msg"] = ["danger", "Update error. Please try again later."];
-          break;
-        }
-        $_SESSION["msg"] = ["success", "Profile information updated successfully"];
-        
-        header ("Location: profile.php");
-        exit();     
+      $stmt_chck_usrnm = $conn->prepare("SELECT * FROM users WHERE username = ?");
+      $stmt_chck_usrnm->bind_param("s", $new_username);
+      $stmt_chck_usrnm->execute();
+      $result_chck_usrnm = $stmt_chck_usrnm->get_result();
       
+      if ($result_chck_usrnm->num_rows > 0 || $new_username == "admin") {
+        $_SESSION["msg"] = ["danger", "Username already exists."];
+        header ("Location: " . $_SERVER["PHP_SELF"]);
+        exit;
+      }
+        
+      $stmt_updt_usrnm = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");
+      $stmt_updt_usrnm->bind_param("si", $new_username, $user_id);
+        
+      if (!$stmt_updt_usrnm->execute()) {
+        $_SESSION["msg"] = ["danger", "Update error. Please try again later."];
+      }
+      $_SESSION["msg"] = ["success", "Username updated successfully"];
+      header ("Location: " . $_SERVER["PHP_SELF"]);
+      exit;
+    }
+    
+    if (isset($_POST["change_password"])) {
+      $old_password = test_input($_POST["old_password"]);
+      $new_password = test_input($_POST["new_password"]);
+      $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
       
-      case "delete_account":
-        $stmt_del_acc = $conn->prepare("DELETE FROM users WHERE id = ?");
-        $stmt_del_acc->bind_param("i", $user_id);
+      if (!password_verify($old_password, $row["password"])) {
+        $_SESSION["msg"] = ["danger", "Incorrect password."];
+      }
+      
+      if (password_verify($new_password, $row["password"])) {
+        $_SESSION["msg"] = ["danger", "You are already using this password."];
+      }
+      
+      $stmt_updt_psswrd = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+      $stmt_updt_psswrd->bind_param("si", $hashed_password, $user_id);
+      
+      if (!$stmt_updt_psswrd->execute()) {
+        $_SESSION["msg"] = ["danger", "Update error. Please try again later."];
+      }
+      $_SESSION["msg"] = ["success", "Password updated successfully"];
+      header ("Location: " . $_SERVER["PHP_SELF"]);
+      exit;
+    }
         
-        if (!$stmt_del_acc->execute()) {
-          $_SESSION["msg"] = ["danger", "Delete error. Please try again later."];
-          break;
-        }
-        $_SESSION["msg"] = ["success", "Account deleted successfully"];
-        session_unset();
-        session_destroy();
-        
-        header ("Location: index.php");
-        exit();      
+    if (isset($_POST["edit_profile"])) {
+      $first_name = test_input($_POST["first_name"]);
+      $middle_name = test_input($_POST["middle_name"]);
+      $last_name = test_input($_POST["last_name"]);
+      $extension_name = test_input($_POST["extension_name"]);
+      $age = test_input($_POST["age"]);
+      $gender = test_input($_POST["gender"]);
+      $birth_date = test_input($_POST["birth_date"]);
+      $contact_number = test_input($_POST["contact_number"]);
+      $email_address = test_input($_POST["email_address"]);
+      $address = test_input($_POST["address"]);
+      
+      $stmt_updt_profile = $conn->prepare("UPDATE users SET
+          first_name = ?, 
+          middle_name = ?, 
+          last_name =  ?, 
+          extension_name = ?, 
+          age = ?, 
+          gender = ?, 
+          birth_date = ?, 
+          contact_number = ?, 
+          email_address = ?, 
+          address = ?
+        WHERE id = ?");
+      $stmt_updt_profile->bind_param("ssssisssssi", $first_name, $middle_name, $last_name, $extension_name, $age, $gender, $birth_date, $contact_number, $email_address, $address, $user_id);
+      
+      if (!$stmt_updt_profile->execute()) {
+        $_SESSION["msg"] = ["danger", "Update error. Please try again later."];
+      }
+      $_SESSION["msg"] = ["success", "Profile information updated successfully"];
+      header ("Location: " . $_SERVER["PHP_SELF"]);
+      exit;    
+    }
+    
+    if (isset($_POST["delete_account"])) {
+      $stmt_del_acc = $conn->prepare("DELETE FROM users WHERE id = ?");
+      $stmt_del_acc->bind_param("i", $user_id);
+      
+      if (!$stmt_del_acc->execute()) {
+        $_SESSION["msg"] = ["danger", "Delete error. Please try again later."];
+      }
+      $_SESSION["msg"] = ["success", "Account deleted successfully"];
+      session_unset();
+      session_destroy();
+      header ("Location: " . $_SERVER["PHP_SELF"]);
+      exit;
     }
   }
   
-  ob_end_flush();
-  $conn->close();
-
-  showHeader("Profile","profile")
+  showHeader("Profile")
 ?>
 
 <main class="py-4">
@@ -214,11 +203,10 @@
     </div>
     
     <div class="d-flex justify-content-end mt-4">
-      <button class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#edit_information"><i class="fa-solid fa-pen-to-square"></i> Edit Information</button>
+      <button class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#edit_profile"><i class="fa-solid fa-pen-to-square"></i> Edit Information</button>
       <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_account"><i class="fa-solid fa-trash"></i> Delete Account</button>
     </div>
   </section>
-  
   
   
   <div class="modal fade" id="change_username" tabindex="-1">
@@ -231,7 +219,6 @@
         <div class="modal-body">
           <form method="POST" novalidate>
             <div class="row mb-2">
-              <input type="hidden" name="action" value="change_username">
               <div class="col-sm form-floating">
                 <input type="text" class="form-control" id="new_username" name="new_username" placeholder="New Username" pattern="[A-Za-z0-9._]+" required>
                 <label for="new_username" class="form-label ps-4">New Username</label>
@@ -240,7 +227,7 @@
             <div class="row m-2">
               <div class="d-flex justify-content-center mt-4 mb-2">
                 <button type="button" class="btn btn-md btn-danger rounded-3 px-3 me-3" data-bs-dismiss="modal">Cancel</button>
-                <input type="submit" value="Update" class="btn btn-success">
+                <input type="submit" name="change_username" value="Update" class="btn btn-success">
               </div>
             </div>
           </form>
@@ -248,7 +235,6 @@
       </div>
     </div>
   </div>
-  
   
   <div class="modal fade" id="change_password" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-4">
@@ -260,7 +246,6 @@
         <div class="modal-body">
           <form method="POST" novalidate>
             <div class="row mb-2">
-              <input type="hidden" name="action" value="change_password">
               <div class="col-sm form-floating">
                 <input type="password" class="form-control input-password" id="old_password" name="old_password" placeholder="Old Password" pattern="[A-Za-z0-9@$!%*?&._]+" required>
                 <label for="old_password" class="form-label ps-4">Old Password</label>
@@ -277,7 +262,7 @@
             <div class="row m-2">
               <div class="d-flex justify-content-center mt-4 mb-2">
                 <button type="button" class="btn btn-md btn-danger rounded-3 px-3 me-3" data-bs-dismiss="modal">Cancel</button>
-                <input type="submit" value="Update" class="btn btn-success">
+                <input type="submit" name="change_password" value="Update" class="btn btn-success">
               </div>
             </div>    
           </form>
@@ -286,8 +271,7 @@
     </div>
   </div>
   
-  
-  <div class="modal fade" id="edit_information" tabindex="-1">
+  <div class="modal fade" id="edit_profile" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-4">
       <div class="modal-content">
         <div class="modal-header pb-0 border-0">          
@@ -296,7 +280,6 @@
         </div>         
         <div class="modal-body">            
           <form method="POST" novalidate>
-            <input type="hidden" name="action" value="edit_information">
             <div class="row mb-2 gx-3 gy-2">
               <div class="col-sm form-floating">
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" value="<?= htmlspecialchars($row["first_name"]); ?>" required>
@@ -341,7 +324,7 @@
               </div>
               <div class="col-sm form-floating">
                 <input type="tel" class="form-control" id="contact_number" name="contact_number" placeholder="Contact Number (e.g. 09...)" value="<?= htmlspecialchars($row["contact_number"]); ?>" required pattern="\d{11}" minlength="11" maxlength="11">
-                <label for="contact_nunber" class="form-label  ps-4">Contact Number (e.g. 09...)</label>
+                <label for="contact_number" class="form-label  ps-4">Contact Number (e.g. 09...)</label>
               </div>
             </div>
               
@@ -359,7 +342,7 @@
             <div class="row m-2">
               <div class="d-flex justify-content-center mt-4 mb-2">
                 <button type="button" class="btn btn-md btn-danger rounded-3 px-3 me-3" data-bs-dismiss="modal">Cancel</button>
-                <input type="submit" value="Update" class="btn btn-success">
+                <input type="submit" name="edit_profile" value="Update" class="btn btn-success">
               </div>
             </div>
           </form>
@@ -367,7 +350,6 @@
       </div>
     </div>
   </div>
-  
   
   <div class="modal fade p-4" id="delete_account" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
@@ -383,8 +365,7 @@
         <div class="modal-footer border-0 d-flex justify-content-center">
           <button type="button" class="btn btn-secondary rounded-3 px-4" data-bs-dismiss="modal">Close</button>
           <form method="POST">
-            <input type="hidden" name="action" value="delete_account">
-            <input type="submit" value="Yes, Delete" class="btn bg-danger text-light rounded-3 px-4">
+            <input type="submit" name="delete_account" value="Yes, Delete" class="btn bg-danger text-light rounded-3 px-4">
           </form>
         </div>
       </div>

@@ -1,6 +1,5 @@
 <?php
   session_start();
-  ob_start();
   
   include "config.php";
   include "components.php";  
@@ -20,17 +19,17 @@
       $_SESSION["username"] = "admin";
       
       header("Location: admin_dashboard.php");
-      exit();
+      exit;
     }
-       
+    
     if ($stmt->fetch()) {
       if (password_verify($password, $hashed_password)) {
-        $_SESSION["msg"] = ["success", "Login Successfull."];
+        $_SESSION["msg"] = ["success", "Login Successfully."];
         $_SESSION["id"] = $id;
         $_SESSION["username"] = $username;
         
         header("Location: index.php");
-        exit();
+        exit;
       } else {
         $_SESSION["msg"] = ["danger", "Invalid username or password."];
       }
@@ -39,21 +38,20 @@
     }
     $stmt->close();
   }
-  $conn->close();  
-  ob_end_flush();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Page Title</title>
+  <link rel="shortcut icon" href="https://dl.dropbox.com/scl/fi/22oiirmwtu6sa1qcd4e8d/logi.jpg?rlkey=ola10jhyofqvvuf6bpct8nysi&st=tiqqmj0l&dl=0" type="image/jpg">
+  <title>Login | DenCare V.A.U.L.T.</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/69faae9203.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="stylesheet.css">
-  <script defer src="JavaScript.js"></script>
+  <script defer src="javascript.js?v=<?= time(); ?>"></script>
   <style>
     main {
       min-height: 100vh;

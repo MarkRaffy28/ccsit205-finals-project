@@ -1,9 +1,9 @@
 <?php
   session_start();
-
+  
   include "components.php";
-
-  showHeader("Services","services")
+  
+  showHeader("Services");
 ?>
 
 <main class="py-4">
@@ -17,7 +17,7 @@
         <button class="btn btn-lg bg-cyan mt-2 text-light rounded-5" data-bs-toggle="modal" data-bs-target="#login-prompt" role="button">Book an Appointment</button>     
       <?php endif; ?>
     </div>
-  
+    
     <div class="office-image mt-4 mt-lg-0 me-lg-3">
       <img src="https://dl.dropbox.com/scl/fi/6ykhpslsnwf5bdxy1353y/office.jpg?rlkey=3kuv5mtvlugmy92yf0jvn3ur6&st=dgmepuz7&dl=0" alt="Dental Office">
     </div>
@@ -77,12 +77,12 @@
   </section> 
   
   <section class="our-clinic mx-2 mt-4 row">
-    <div class="px-4 col-md-4">
+    <div class="px-4 col-md-4 hover-scale-up">
       <h1 class="fw-semibold text-center">Our Clinic</h1>
       <p class="text-center">Dela Vega Dental Clinic, we are dedicated to providing exceptional dental care in a warm and comfortable environment. Our team of skilled professionals combines advanced technology with personalized treatment to ensure every patient enjoys a healthy and confident smile. We focus on gentle, patient-centered care that makes every visit a positive experience since 2017.</p>
     </div>        
     
-    <div class="clinic-information px-4 mt-5 mt-lg-0 col-md-4">
+    <div class="clinic-information px-4 mt-5 mt-lg-0 col-md-4 hover-scale-up">
       <img class="rounded-3" src="https://dl.dropbox.com/scl/fi/6ykhpslsnwf5bdxy1353y/office.jpg?rlkey=3kuv5mtvlugmy92yf0jvn3ur6&st=dgmepuz7&dl=0" alt="Dental Office">
       <div class="clinic-card rounded-4 px-4 py-3">
         <h5>Dela Vega Dental Clinic</h5>
@@ -103,7 +103,7 @@
       </div>
     </div>      
       
-    <div class="col-md-4">
+    <div class="col-md-4 hover-scale-up">
       <div class="call-to-action px-3 py-5 rounded-3 d-flex flex-column align-items-center">
         <h1 class="fw-semibold text-white text-center">Your healthier and brighter smile starts here.</h1>
         <?php if(isset($_SESSION["username"])): ?>
