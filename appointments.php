@@ -130,6 +130,13 @@
     $stmt_cancel_appt = $conn->prepare("UPDATE appointments SET status = 'Cancelled' WHERE id = ?");
     $stmt_cancel_appt->bind_param("i", $cancel_appt_id);
     
+    $stmt_get_curr_slot_id = $conn->prepare("SELECT slot_id FROM appointments WHERE id = ?");
+    $stmt_get_curr_slot_id->bind_param("i", $cancel_appt_id);
+    $stmt_get_curr_slot_id->execute();
+    $stmt_get_curr_slot_id->bind_result($current_slot_id);
+    $stmt_get_curr_slot_id->fetch();
+    $stmt_get_curr_slot_id->close();
+    
     if (!$stmt_cancel_appt->execute()) {
       $_SESSION["msg"] = ["danger", "Cancel error. Please try again later."];
       header ("Location: " . $_SERVER["PHP_SELF"]);
@@ -254,8 +261,8 @@
               }
               
               $date = date("F j, Y", strtotime($request_row["date"]));
-              $start_time =  date("h: i A", strtotime($request_row["start_time"]));
-              $end_time =  date("h: i A", strtotime($request_row["end_time"]));
+              $start_time =  date("h:i A", strtotime($request_row["start_time"]));
+              $end_time =  date("h:i A", strtotime($request_row["end_time"]));
           ?>
               <div class="card border-0 shadow-sm rounded-4 mb-3">
                   <div class="card-body">
@@ -319,23 +326,23 @@
               ORDER BY d.date DESC, d.start_time ASC");
             $stmt_show_upcoming_appts->bind_param("i", $_SESSION["id"]);
             $stmt_show_upcoming_appts->execute();
-            $requests_result = $stmt_show_upcoming_appts->get_result();
+            $upcoming_result = $stmt_show_upcoming_appts->get_result();
             
-            if ($requests_result->num_rows === 0) {
+            if ($upcoming_result->num_rows === 0) {
               echo '<p class="text-center text-muted fw-semibold mt-4">No appointments available.</p>';
             }
-            while ($request_row = $requests_result->fetch_assoc()):
+            while ($upcoming_row = $upcoming_result->fetch_assoc()):
               $service_name = "Unknown Service";
               foreach ($services as $service) {
-                  if ($service["id"] == $request_row["service_id"]) {
+                  if ($service["id"] == $upcoming_row["service_id"]) {
                       $service_name = $service["name"];
                       break;
                   }
               }
               
-              $date = date("F j, Y", strtotime($request_row["date"]));
-              $start_time =  date("h: i A", strtotime($request_row["start_time"]));
-              $end_time =  date("h: i A", strtotime($request_row["end_time"]));
+              $date = date("F j, Y", strtotime($upcoming_row["date"]));
+              $start_time =  date("h:i A", strtotime($upcoming_row["start_time"]));
+              $end_time =  date("h:i A", strtotime($upcoming_row["end_time"]));
           ?>
               <div class="card border-0 shadow-sm rounded-4 mb-3">
                   <div class="card-body">
@@ -350,9 +357,9 @@
                         </div>
                       </div>
                       <div class="col-md-4 d-flex justify-content-between align-items-center flex-shrink-0 gap-2 mt-2 mt-md-0">
-                        <span class="badge bg-primary text-light px-3 py-2"> <?= $request_row["status"] ?> </span>
+                        <span class="badge bg-primary text-light px-3 py-2"> <?= $upcoming_row["status"] ?> </span>
                         <div class="d-flex gap-2">
-                          <button class="cancel-button btn btn-sm btn-danger" data-id="<?= $request_row["appointment_id"] ?>"><i class="bi bi-x-circle me-1"></i>Cancel</button>
+                          <button class="cancel-button btn btn-sm btn-danger" data-id="<?= $upcoming_row["appointment_id"] ?>"><i class="bi bi-x-circle me-1"></i>Cancel</button>
                         </div>
                       </div>
                     </div>
@@ -387,23 +394,23 @@
               ORDER BY d.date DESC, d.start_time ASC");
             $stmt_show_appt_history->bind_param("i", $_SESSION["id"]);
             $stmt_show_appt_history->execute();
-            $requests_result = $stmt_show_appt_history->get_result();
+            $history_result = $stmt_show_appt_history->get_result();
             
-            if ($requests_result->num_rows === 0) {
+            if ($history_result->num_rows === 0) {
               echo '<p class="text-center text-muted fw-semibold mt-4">No appointments available.</p>';
             }
-            while ($request_row = $requests_result->fetch_assoc()):
+            while ($history_row = $history_result->fetch_assoc()):
               $service_name = "Unknown Service";
               foreach ($services as $service) {
-                  if ($service["id"] == $request_row["service_id"]) {
+                  if ($service["id"] == $history_row["service_id"]) {
                       $service_name = $service["name"];
                       break;
                   }
               }
               
-              $date = date("F j, Y", strtotime($request_row["date"]));
-              $start_time =  date("h: i A", strtotime($request_row["start_time"]));
-              $end_time =  date("h: i A", strtotime($request_row["end_time"]));
+              $date = date("F j, Y", strtotime($history_row["date"]));
+              $start_time =  date("h:i A", strtotime($history_row["start_time"]));
+              $end_time =  date("h:i A", strtotime($history_row["end_time"]));
           ?>
               <div class="card border-0 shadow-sm rounded-4 mb-3">
                   <div class="card-body">
@@ -420,7 +427,7 @@
                       <div class="col-md-4 d-flex justify-content-md-around align-items-center flex-shrink-0 gap-2 mt-2 mt-md-0">
                         <div>
                           <?php
-                            switch ($request_row["status"]) {
+                            switch ($history_row["status"]) {
                               case "Declined": $bg_text_color = "bg-danger text-white"; $icon = "ban"; break;
                               case "Pending": $bg_text_color = "bg-warning text-dark"; $icon = "hourglass-split"; break;
                               case "Approved": $bg_text_color = "bg-primary text-white"; $icon = "check-circle"; break;
@@ -430,11 +437,11 @@
                           ?>
                           <span class="badge <?= $bg_text_color ?> align-middle px-3 py-2">
                             <i class="bi bi-<?= $icon; ?>"></i> 
-                            <?= $request_row["status"] ?> 
+                            <?= $history_row["status"] ?> 
                           </span>
                         </div>
                         <div>
-                          <span class="badge bg-purple text-white px-3 py-2"> <?= "₱" . number_format($request_row["payment_amount"] ?? 0, thousands_separator: ", ") ?> </span>
+                          <span class="<?= $history_row["payment_amount"] ? 'badge bg-purple text-white px-3 py-2' : ''; ?>"> <?= $history_row["payment_amount"] ? "₱" . number_format($history_row["payment_amount"], thousands_separator: ",") : ""; ?> </span>
                         </div>
                       </div>
                     </div>

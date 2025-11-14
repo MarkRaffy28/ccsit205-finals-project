@@ -130,7 +130,7 @@
               <td class="text-center"> <?= $service_name; ?> </td>
               <td class="text-center"> <?= date("F j, Y", strtotime($row["date"])) . ": " . date("g:i A", strtotime($row["start_time"])) . " - " . date("g:i A", strtotime($row["end_time"])) ?> </td>
               <td class="text-center"> <?= $row["notes"]; ?> </td>
-              <td class="text-center"> ₱<?= number_format($row["payment_amount"] ?? 0, thousands_separator: ", "); ?> </td>
+              <td class="text-center"> <?= $row["payment_amount"] ? "₱" . number_format($row["payment_amount"], thousands_separator: ",") : ""; ?> </td>
             </tr>
           <?php
             endwhile;
@@ -156,7 +156,7 @@
         </tbody>
         <tfoot class="position-sticky bottom-0 bg-light tfoot-border-top">
           <tr>
-            <td colspan="14" class="text-end fw-bold"> Total Sales: <span class="text-success ms-2"> ₱<?= (int) number_format($total_sales, 2, '.', ','); ?> </span> </td>
+            <td colspan="14" class="text-end fw-bold"> Total Sales: <span class="text-success ms-2"> ₱<?= number_format((int) round($total_sales),  thousands_separator: ','); ?> </span> </td>
           </tr>
         </tfoot>
       </table>

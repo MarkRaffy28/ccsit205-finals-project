@@ -26,25 +26,19 @@
     exit;
   }
   
-  if (isset($_POST["complete_appointment"])) {
-    $complete_appt_id = test_input($_POST["complete_appt_id"]);
-    $notes = test_input($_POST["notes"]);
-    $payment_amount = test_input($_POST["payment_amount"]);
+  if (isset($_POST["revert_appointment"])) {
+    $revert_appt_id = test_input($_POST["revert_appt_id"]);
     
-    $stmt_complete_appt = $conn->prepare("UPDATE appointments SET 
-        notes = ?,
-        payment_amount = ?,
-        status = 'Completed' 
-      WHERE id = ?");
-    $stmt_complete_appt->bind_param("sii", $notes, $payment_amount, $complete_appt_id);
+    $stmt_revert_appt = $conn->prepare("UPDATE appointments SET status = 'Upcoming' WHERE id = ?");
+    $stmt_revert_appt->bind_param("i", $revert_appt_id);
     
-    if (!$stmt_complete_appt->execute()) {
-      $_SESSION["msg"] = ["danger", "Complete error. Please try again later."];
+    if (!$stmt_revert_appt->execute()) {
+      $_SESSION["msg"] = ["danger", "Revert error. Please try again later."];
       header ("Location: " . $_SERVER["PHP_SELF"]);
       exit;
     }
     
-    $_SESSION["msg"] = ["success", "Appointment completed successfully"];
+    $_SESSION["msg"] = ["success", "Appointment reverted successfully"];
     header ("Location: " . $_SERVER["PHP_SELF"]);
     exit;
   }
@@ -151,7 +145,7 @@
               <td class="text-center"> <?= $service_name; ?> </td>
               <td class="text-center"> <?= date("F j, Y", strtotime($row["date"])) . ": " . date("g:i A", strtotime($row["start_time"])) . " - " . date("g:i A", strtotime($row["end_time"])) ?> </td>
               <td class="text-center"> <?= $row["notes"]; ?> </td>
-              <td class="text-center"> ₱<?= number_format($row["payment_amount"] ?? 0, thousands_separator: ", "); ?> </td>
+              <td class="text-center"> <?= $row["payment_amount"] ? "₱" . number_format($row["payment_amount"], thousands_separator: ",") : ""; ?> </td>
               <td class="text-center">
                 <div class="d-flex gap-2">
                   <button class="edit-button btn btn-sm btn-warning" 

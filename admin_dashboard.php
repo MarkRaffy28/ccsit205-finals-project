@@ -55,7 +55,7 @@
       <div class="col-12 col-md-6 col-lg-3 px-4">
         <div class="card shadow-sm p-3 h-100 d-flex flex-column justify-content-center" onclick="window.location.href='admin_appointments_upcoming.php';">
           <h1 class="fw-bold text-center"> <?= $upcoming; ?> </h1>
-          <h5 class="cb-gradient fw-semibold text-center">Upcoming Appointment <?= ($upcoming > 1) ? "s" : "" ?> </h5>
+          <h5 class="cb-gradient fw-semibold text-center">Upcoming Appointment<?= ($upcoming > 1) ? "s" : "" ?> </h5>
         </div>
       </div>
       
