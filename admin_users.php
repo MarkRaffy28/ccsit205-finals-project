@@ -426,6 +426,7 @@
           <input type="hidden" name="delete_id" id="delete_id">
           <input type="submit" name="delete_user" value="Yes, Delete" class="btn bg-danger text-light rounded-3 px-4">
         </form>
+      </div>
     </div>
   </div>
 </div>
